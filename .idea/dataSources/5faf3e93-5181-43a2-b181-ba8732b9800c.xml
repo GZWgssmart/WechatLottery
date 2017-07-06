@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="wechat_lottery@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+    <root id="1"/>
+    <schema id="2" parent="1" name="wechat_lottery">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="ads_system"/>
+    <schema id="4" parent="1" name="auto_platform"/>
+    <schema id="5" parent="1" name="baibai"/>
+    <schema id="6" parent="1" name="classweb"/>
+    <schema id="7" parent="1" name="d_goods"/>
+    <schema id="8" parent="1" name="d_home"/>
+    <schema id="9" parent="1" name="enterprise"/>
+    <schema id="10" parent="1" name="home_decoration"/>
+    <schema id="11" parent="1" name="hospital"/>
+    <schema id="12" parent="1" name="information_schema"/>
+    <schema id="13" parent="1" name="mysql"/>
+    <schema id="14" parent="1" name="performance_schema"/>
+    <schema id="15" parent="1" name="sakila"/>
+    <schema id="16" parent="1" name="sys"/>
+    <schema id="17" parent="1" name="world"/>
+    <table id="18" parent="2" name="t_user"/>
+    <column id="19" parent="18" name="id">
+      <Position>1</Position>
+      <Comment>编号</Comment>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="20" parent="18" name="wechat_nickname">
+      <Position>6</Position>
+      <Comment>微信昵称</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="21" parent="18" name="wechat_no">
+      <Position>7</Position>
+      <Comment>微信号</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="22" parent="18" name="phone">
+      <Position>8</Position>
+      <Comment>手机号</Comment>
+      <DataType>varchar(11)|0</DataType>
+    </column>
+    <column id="23" parent="18" name="payed_fee">
+      <Position>10</Position>
+      <Comment>支付金额</Comment>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="24" parent="18" name="payed_time">
+      <Position>11</Position>
+      <Comment>支付时间</Comment>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="25" parent="18" name="payed_order">
+      <Position>12</Position>
+      <Comment>支付顺序</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="26" parent="18" name="prized">
+      <Position>13</Position>
+      <Comment>是否中奖</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="27" parent="18" name="gender">
+      <Position>9</Position>
+      <Comment>性别</Comment>
+      <DataType>varchar(2)|0</DataType>
+    </column>
+    <column id="28" parent="18" name="access_token">
+      <Position>2</Position>
+      <Comment>用于微信网页端登录</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="29" parent="18" name="access_token1">
+      <Position>3</Position>
+      <Comment>普通access_token</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="30" parent="18" name="openid">
+      <Position>4</Position>
+      <Comment>openid</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="31" parent="18" name="unionid">
+      <Position>5</Position>
+      <Comment>联合id</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <key id="32" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
