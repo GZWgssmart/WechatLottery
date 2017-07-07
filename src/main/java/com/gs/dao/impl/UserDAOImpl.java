@@ -92,4 +92,18 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
     public List<User> queryAllPrized() {
         return null;
     }
+
+    public void updatePhone(String openid, String phone) {
+        getConnection();
+        String sql = "update t_user set phone = ? where openid = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, phone);
+            preparedStatement.setString(2, openid);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        close();
+    }
 }

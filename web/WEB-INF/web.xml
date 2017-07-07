@@ -11,4 +11,13 @@
         <res-auth>Container</res-auth>
     </resource-ref>
 
+    <context-param>
+        <param-name>autoloadConfigLocation</param-name>
+        <param-value>/WEB-INF/config/config.properties</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>com.gs.common.web.AutoLoadListener</listener-class>
+    </listener>
+
 </web-app>

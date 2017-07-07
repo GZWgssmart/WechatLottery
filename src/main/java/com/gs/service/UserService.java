@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface UserService extends BaseService<Integer, User> {
     public List<User> queryAllPrized();
+
+    public void updatePhone(String openid, String phone);
 }

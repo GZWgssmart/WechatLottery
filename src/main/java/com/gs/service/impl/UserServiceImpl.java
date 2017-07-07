@@ -63,4 +63,8 @@ public class UserServiceImpl implements UserService {
     public List<User> queryAllPrized() {
         return null;
     }
+
+    public void updatePhone(String openid, String phone) {
+        userDAO.updatePhone(openid, phone);
+    }
 }

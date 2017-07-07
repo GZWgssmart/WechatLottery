@@ -11,4 +11,6 @@ public interface UserDAO extends BaseDAO<Integer, User> {
 
     public List<User> queryAllPrized();
 
+    public void updatePhone(String openid, String phone);
+
 }

@@ -83,7 +83,7 @@ public class PayServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        req.getRequestDispatcher("/pay.jsp").forward(req, resp); // 转发到页面，调用js支付
+        req.getRequestDispatcher("/WEB-INF/views/user/pay.jsp").forward(req, resp); // 转发到页面，调用js支付
     }
 
     private ResponseHandler<String> responseHandler = new ResponseHandler<String>() {

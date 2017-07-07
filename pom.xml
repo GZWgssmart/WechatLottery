@@ -39,6 +39,8 @@
         <junit-version>4.12</junit-version>
         <fastjson-version>1.2.34</fastjson-version>
         <slf4j-version>1.7.25</slf4j-version>
+        <taglibs-version>1.1.2</taglibs-version>
+        <jstl-version>1.2</jstl-version>
 
     </properties>
 
@@ -77,6 +79,11 @@
             <version>${slf4j-version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl-version}</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -84,7 +91,6 @@
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
-
 
     </dependencies>
     
