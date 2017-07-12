@@ -11,21 +11,33 @@
 %>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>活动支付</title>
+    <link href="<%=path %>/plugins/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <link href="<%=path %>/plugins/sweet-alert/sweet-alert.css" rel="stylesheet"/>
+    <link href="<%=path %>/css/main.css" rel="stylesheet" />
 </head>
 <body>
 </body>
+<script src="<%=path %>/plugins/jquery-3.2.1.min.js"></script>
+<script src="<%=path %>/plugins/bootstrap/bootstrap.min.js"></script>
+<script src="<%=path %>/plugins/sweet-alert/sweet-alert.min.js"></script>
+<script src="<%=path %>/js/main.js"></script>
 <script>
-    if (typeof WeixinJSBridge == "undefined") {
-        if (document.addEventListener) {
-            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-        } else if (document.attachEvent) {
-            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    $(function() {
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
         }
-    } else {
-        onBridgeReady();
-    }
+    });
+
     function onBridgeReady() {
         WeixinJSBridge.invoke(
             'getBrandWCPayRequest', {
@@ -37,11 +49,11 @@
                 "paySign": "${paySign}"
             }, function (res) {
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
-                    alert("微信支付成功!");
+                   paySuccess();
                 } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
-                    alert("用户取消支付!");
+                    cancelPay();
                 } else if (res.err_msg == "get_brand_wcpay_request:fail") {
-                    alert("支付失败!");
+                    payFail();
                 }
             });
     }

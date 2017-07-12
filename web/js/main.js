@@ -28,3 +28,22 @@ function checkPhone(){
 function toHomePage() {
     window.location.href = contextPath + '/user/home';
 }
+
+function payFail() {
+    swal("微信支付服务有问题，请稍候再试", "", "error");
+    setTimeout("toHomePage()", 3000);
+}
+
+function cancelPay() {
+    swal("取消支付", "", "warning");
+    setTimeout("toHomePage()", 3000);
+}
+
+function paySuccess() {
+    swal("支付成功", "", "success");
+    setTimeout("toHomePage()", 3000);
+}
+
+function payTimeout() {
+    swal("指定时间内未支付，您的支付被取消！", "", "warning");
+}

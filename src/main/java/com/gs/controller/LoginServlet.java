@@ -50,40 +50,43 @@ public class LoginServlet extends HttpServlet {
         String code = request.getParameter("code");
         String state = request.getParameter("state");
         CloseableHttpClient httpclient = HttpClients.createDefault();
+        // 微信授权登录API
         HttpGet httpGet = new HttpGet(WechatAPI.GET_ACCESS_TOKEN_URL.replace("{CODE}", code));
         String accessor = httpclient.execute(httpGet, responseHandler);
         if (accessor != null) {
             JSONObject accessorJSON = JSON.parseObject(accessor);
             String accessToken = accessorJSON.getString("access_token");
             if (accessToken != null) {
-                httpGet = new HttpGet(WechatAPI.GET_USER_INFO.replace("{ACCESS_TOKEN}", accessToken).replace("{OPENID}", accessorJSON.getString("openid")));
-                String userInfo = httpclient.execute(httpGet, responseHandler);
-                userInfo = new String(userInfo.getBytes(Constants.ISO_ENCODING), Constants.DEFAULT_ENCODING);
-                JSONObject userInfoJSON = JSON.parseObject(userInfo);
-                User user = new User();
-                user.setOpenId(userInfoJSON.getString("openid"));
-                user.setWechatNickname(userInfoJSON.getString("nickname"));
-                user.setAccessToken(accessToken);
-                int sex = userInfoJSON.getInteger("sex");
-                if (sex == 1) {
-                    user.setGender("男");
-                } else if (sex == 2) {
-                    user.setGender("女");
-                } else {
-                    user.setGender("无");
-                }
-                user.setUnionId(userInfoJSON.getString("unionid"));
-                httpclient.close();
-                User u = userService.queryByOpenId(user.getOpenId());
+                // 如果授权登录成功，则通过access_token和openid去获取用户信息
                 HttpSession session = request.getSession();
-                if (u != null) {
+                String openid = accessorJSON.getString("openid");
+                User u = userService.queryByOpenId(openid);
+                if (u != null) { // 数据库中已经有用户数据
                     session.setAttribute(Constants.LOGINED_USER, u);
                     if (u.getPhone() != null && !u.getPhone().equals("")) {
                         response.sendRedirect("/user/home");
                     } else {
                         response.sendRedirect("/user/phone");
                     }
-                } else {
+                } else { // 数据库没有用户数据，则通过微信接口去获取用户数据后保存到数据库中
+                    httpGet = new HttpGet(WechatAPI.GET_USER_INFO.replace("{ACCESS_TOKEN}", accessToken).replace("{OPENID}", openid));
+                    String userInfo = httpclient.execute(httpGet, responseHandler);
+                    httpclient.close();
+                    userInfo = new String(userInfo.getBytes(Constants.ISO_ENCODING), Constants.DEFAULT_ENCODING); // 转码
+                    JSONObject userInfoJSON = JSON.parseObject(userInfo);
+                    User user = new User();
+                    user.setOpenId(openid);
+                    user.setWechatNickname(userInfoJSON.getString("nickname"));
+                    user.setAccessToken(accessToken);
+                    int sex = userInfoJSON.getInteger("sex");
+                    if (sex == 1) {
+                        user.setGender("男");
+                    } else if (sex == 2) {
+                        user.setGender("女");
+                    } else {
+                        user.setGender("无");
+                    }
+                    user.setUnionId(userInfoJSON.getString("unionid"));
                     userService.add(user);
                     session.setAttribute(Constants.LOGINED_USER, user);
                     response.sendRedirect("/user/phone");

@@ -13,6 +13,29 @@ public final class Constants {
 
     public static final String LOGINED_USER = "user";
 
+    /**
+     * 共多少人已经参与
+     */
+    public static final String TOTAL_JOIN = "total_join";
 
+    /**
+     * 实际已经有多少人支付
+     */
+    public static final String ACTUAL_PAY = "actual_pay";
+
+    /**
+     * 支付顺序与用户的对应关系
+     */
+    public static final String USER_MAP = "user_map";
+
+    /**
+     * 用户openid与支付状态的对应关系
+     */
+    public static final String USER_PAYED_MAP = "user_payed_map";
+
+    /**
+     * 用于记录哪些顺序未成功支付
+     */
+    public static final String UNPAYED_ORDER = "unpayed_order";
 
 }

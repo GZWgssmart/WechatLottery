@@ -1,11 +1,12 @@
 package com.gs.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Wang Genshen on 2017-06-29.
  */
-public class User {
+public class User implements Serializable {
 
     private int id;
     private String accessToken;
@@ -19,6 +20,8 @@ public class User {
     private double payedFee;
     private Date payedTime;
     private int payedOrder;
+    private String tradeNo;
+    private String tranId;
     private int prized;
 
     public int getId() {
@@ -117,11 +120,48 @@ public class User {
         this.payedOrder = payedOrder;
     }
 
+    public String getTradeNo() {
+        return tradeNo;
+    }
+
+    public void setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+    }
+
+    public String getTranId() {
+        return tranId;
+    }
+
+    public void setTranId(String tranId) {
+        this.tranId = tranId;
+    }
+
     public int getPrized() {
         return prized;
     }
 
     public void setPrized(int prized) {
         this.prized = prized;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", accessToken='" + accessToken + '\'' +
+                ", accessToken1='" + accessToken1 + '\'' +
+                ", openId='" + openId + '\'' +
+                ", unionId='" + unionId + '\'' +
+                ", wechatNickname='" + wechatNickname + '\'' +
+                ", wechatNo='" + wechatNo + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phone='" + phone + '\'' +
+                ", payedFee=" + payedFee +
+                ", payedTime=" + payedTime +
+                ", payedOrder=" + payedOrder +
+                ", tradeNo='" + tradeNo + '\'' +
+                ", tranId='" + tranId + '\'' +
+                ", prized=" + prized +
+                '}';
     }
 }

@@ -1,7 +1,6 @@
 package com.gs.filter;
 
 import com.gs.common.Constants;
-import org.apache.http.protocol.HTTP;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by Wang Genshen on 2017-07-07.
  */
-@WebFilter(filterName = "AccessFilter", urlPatterns = {"/user/*", "/pay/*"})
+@WebFilter(filterName = "AccessFilter", urlPatterns = {"/user/*"})
 public class AccessFilter implements Filter {
 
     public void destroy() {

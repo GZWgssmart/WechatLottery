@@ -16,5 +16,7 @@ CREATE TABLE t_user(
   payed_fee DOUBLE COMMENT '支付金额',
   payed_time DATETIME COMMENT '支付时间',
   payed_order int COMMENT '支付顺序',
+  trade_no VARCHAR(100) COMMENT '内部订单号',
+  tran_id VARCHAR(100) COMMENT '微信支付订单号',
   prized int COMMENT '是否中奖'
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

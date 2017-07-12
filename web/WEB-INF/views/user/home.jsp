@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="row none-box">
-        <div class="col-xs-6 col-sm-6 com-md-6 col-lg-4">
+        <div class="col-xs-12 col-sm-12 com-md-12 col-lg-12">
             <h4>
             欢迎您：${sessionScope.user.wechatNickname}
             </h4>
@@ -39,11 +39,19 @@
             </c:when>
             <c:otherwise>
                 <c:choose>
-                    <c:when test="${requestScope.activity_started == true}">
+                    <c:when test="${requestScope.activity_started == true && requestScope.user_limited == false}">
                         <a class="btn btn-primary btn-lg col-xs-12" href="<%=path %>/user/topay">开始抽奖！</a>
                     </c:when>
+                    <c:when test="${requestScope.activity_started == true && requestScope.user_limited == true}">
+                        <p class="text-warning col-xs-12">抽奖结束，已有${applicationScope.activity_max_user}人参与抽奖！</p>
+                    </c:when>
+                    <c:when test="${requestScope.activity_started == false && requestScope.user_limited == false}">
+                        <p class="text-warning col-xs-12">抽奖活动将在${applicationScope.activity_begin_time}开始！</p>
+                        <a class="btn btn-default btn-lg col-xs-12" href="<%=path %>/user/home">刷新</a>
+                    </c:when>
                     <c:otherwise>
-                        <p class="text-primary col-xs-12">抽奖活动将在${applicationScope.activity_begin_time}开始！</p>
+                        <p class="text-warning col-xs-12">抽奖活动将在${applicationScope.activity_begin_time}开始！</p>
+                        <a class="btn btn-default btn-lg col-xs-12" href="<%=path %>/user/home">刷新</a>
                     </c:otherwise>
                 </c:choose>
             </c:otherwise>
