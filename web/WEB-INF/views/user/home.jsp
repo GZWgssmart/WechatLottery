@@ -39,20 +39,16 @@
             </c:when>
             <c:otherwise>
                 <c:choose>
-                    <c:when test="${requestScope.activity_started == true && requestScope.user_limited == false}">
+                    <c:when test="${requestScope.game_status == 'gaming'}">
                         <a class="btn btn-primary btn-lg col-xs-12" href="<%=path %>/user/topay">开始抽奖！</a>
                     </c:when>
-                    <c:when test="${requestScope.activity_started == true && requestScope.user_limited == true}">
+                    <c:when test="${requestScope.game_status == 'game_over'}">
                         <p class="text-warning col-xs-12">抽奖结束，已有${applicationScope.activity_max_user}人参与抽奖！</p>
                     </c:when>
-                    <c:when test="${requestScope.activity_started == false && requestScope.user_limited == false}">
+                    <c:when test="${requestScope.game_status == 'not_start'}">
                         <p class="text-warning col-xs-12">抽奖活动将在${applicationScope.activity_begin_time}开始！</p>
                         <a class="btn btn-default btn-lg col-xs-12" href="<%=path %>/user/home">刷新</a>
                     </c:when>
-                    <c:otherwise>
-                        <p class="text-warning col-xs-12">抽奖活动将在${applicationScope.activity_begin_time}开始！</p>
-                        <a class="btn btn-default btn-lg col-xs-12" href="<%=path %>/user/home">刷新</a>
-                    </c:otherwise>
                 </c:choose>
             </c:otherwise>
         </c:choose>

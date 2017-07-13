@@ -49,7 +49,7 @@
                 "paySign": "${paySign}"
             }, function (res) {
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
-                   paySuccess();
+                    paySuccess();
                 } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
                     cancelPay();
                 } else if (res.err_msg == "get_brand_wcpay_request:fail") {

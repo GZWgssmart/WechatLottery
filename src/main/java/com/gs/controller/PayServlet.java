@@ -1,5 +1,6 @@
 package com.gs.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.gs.bean.User;
@@ -7,6 +8,7 @@ import com.gs.common.Constants;
 import com.gs.common.PayStatus;
 import com.gs.common.WebUtil;
 import com.gs.common.WechatAPI;
+import com.gs.common.bean.ControllerResult;
 import com.gs.common.util.DecimalUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -145,6 +147,7 @@ public class PayServlet extends HttpServlet {
                 Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
                 // 用户openid与支付状态的对应关系
                 Map<String, String> userPayedMap = (HashMap<String, String>) servletContext.getAttribute(Constants.USER_PAYED_MAP);
+                List<Integer> unpayedOrder = (ArrayList<Integer>) servletContext.getAttribute(Constants.UNPAYED_ORDER);
 
                 servletContext.setAttribute(Constants.ACTUAL_PAY, actualPay + 1); // 支付成功，则actual_pay + 1
                 User user = userMap.get(payOrder);
@@ -157,13 +160,12 @@ public class PayServlet extends HttpServlet {
                 user.setTradeNo(outTradeNo);
                 user.setTranId(tranId);
                 servletContext.setAttribute(Constants.USER_MAP, userMap);
-                userPayedMap.put(openId, PayStatus.SUCCESS);
+                synchronized (Object.class) {
+                    userPayedMap.put(openId, PayStatus.SUCCESS);
+                    unpayedOrder.remove(payOrder);
+                }
                 servletContext.setAttribute(Constants.USER_PAYED_MAP, userPayedMap);
-
-                HttpSession session = req.getSession();
-                User u = (User) session.getAttribute(Constants.LOGINED_USER);
-                u.setPayedFee(DecimalUtil.centToYuan(Integer.valueOf(totalFee)));
-                u.setPayedOrder(Integer.valueOf(totalFee));
+                servletContext.setAttribute(Constants.UNPAYED_ORDER, unpayedOrder);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -174,32 +176,42 @@ public class PayServlet extends HttpServlet {
     }
 
     private void payResult(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("pay_result.....");
         HttpSession session = req.getSession();
         Object userObj = session.getAttribute(Constants.LOGINED_USER);
         if (userObj != null) {
             User user = (User) userObj;
-
             ServletContext servletContext = req.getServletContext();
             Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
-            Map<String, String> userPayedMap = (HashMap<String, String>) servletContext.getAttribute(Constants.USER_PAYED_MAP);
-
-            String openId = user.getOpenId();
-            double payedFee = user.getPayedFee();
-            int payedOrder = user.getPayedOrder();
-            String payResult = req.getParameter("pay_result");
-
-            if (payResult != null && payResult.equals("cancel")) {
-                // 取消支付
-                synchronized (Object.class) {
-                    userMap.remove(payedOrder);
-                    userPayedMap.remove(openId);
+            List<Integer> unpayedOrder = (ArrayList<Integer>) servletContext.getAttribute(Constants.UNPAYED_ORDER);
+            if (userMap.size() > 0) {
+                String openId = user.getOpenId();
+                double payedFee = user.getPayedFee();
+                int payedOrder = user.getPayedOrder();
+                String payResult = req.getParameter("pay_result");
+                int unusedOrder = 0;
+                if (unpayedOrder.size() <= 0) {
+                    unusedOrder = payedOrder;
+                } else {
+                    unusedOrder = unpayedOrder.get(unpayedOrder.size() - 1) + 1;
                 }
-            } else if (payResult != null && payResult.equals("fail")) {
-                // 支付失败
-                synchronized (Object.class) {
-                    userMap.remove(payedOrder);
-                    userPayedMap.remove(openId);
+                Collections.sort(unpayedOrder);
+                if (payResult != null && payResult.equals("cancel")) {
+                    // 取消支付
+                    synchronized (Object.class) {
+                        userMap.remove(payedOrder);
+                        unpayedOrder.add(unusedOrder);
+                    }
+                } else if (payResult != null && payResult.equals("fail")) {
+                    // 支付失败
+                    synchronized (Object.class) {
+                        userMap.remove(payedOrder);
+                        unpayedOrder.add(unusedOrder);
+                    }
                 }
+                resp.setContentType("text/json;charset=utf-8");
+                PrintWriter out = resp.getWriter();
+                out.println(JSON.toJSONString(ControllerResult.getSuccessResult("跳转到用户首页")));
             }
         }
     }

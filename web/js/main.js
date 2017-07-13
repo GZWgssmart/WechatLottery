@@ -31,12 +31,12 @@ function toHomePage() {
 
 function payFail() {
     swal("微信支付服务有问题，请稍候再试", "", "error");
-    setTimeout("toHomePage()", 3000);
+    setTimeout("payFailResult()", 3000);
 }
 
 function cancelPay() {
     swal("取消支付", "", "warning");
-    setTimeout("toHomePage()", 3000);
+    setTimeout("cancelPayResult()", 3000);
 }
 
 function paySuccess() {
@@ -46,4 +46,20 @@ function paySuccess() {
 
 function payTimeout() {
     swal("指定时间内未支付，您的支付被取消！", "", "warning");
+}
+
+function payFailResult() {
+    $.get(contextPath + "/pay/pay_result?pay_result=fail",
+        function (data) {
+            toHomePage();
+        }, "json"
+    );
+}
+
+function cancelPayResult() {
+    $.get(contextPath + "/pay/pay_result?pay_result=cancel",
+        function (data) {
+            toHomePage();
+        }, "json"
+    );
 }

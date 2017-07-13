@@ -28,7 +28,7 @@
         <h4>
             欢迎您：${sessionScope.user.wechatNickname}
         </h4>
-        <p>您已成功支付${sessionScope.user.payedFee}元，无需再参与！</p>
+        <p>您已成功支付${requestScope.total_fee_yuan}元，无需再参与！</p>
     </div>
 </div>
 </body>

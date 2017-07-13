@@ -2,10 +2,7 @@ package com.gs.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.gs.bean.User;
-import com.gs.common.ConfigConstants;
-import com.gs.common.Constants;
-import com.gs.common.PayStatus;
-import com.gs.common.WebUtil;
+import com.gs.common.*;
 import com.gs.common.bean.ControllerResult;
 import com.gs.common.util.DateUtil;
 import com.gs.common.util.DecimalUtil;
@@ -21,9 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Wang Genshen on 2017-06-29.
@@ -53,26 +48,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ServletContext servletContext = request.getServletContext();
-        HttpSession session = request.getSession();
-        String beginTime = (String) servletContext.getAttribute(ConfigConstants.ACTIVITY_BEGIN_TIME);
-        int maxUser = (Integer) servletContext.getAttribute(ConfigConstants.ACTIVITY_MAX_USER);
-        Object actualPayObj = servletContext.getAttribute(Constants.ACTUAL_PAY);
-        int actualPay = 0;
-        if (actualPayObj != null) {
-            actualPay = (Integer) actualPayObj;
-        }
-        Calendar beginTimeCal = DateUtil.stringToCalendar(beginTime);
-        if (beginTimeCal != null && Calendar.getInstance().compareTo(beginTimeCal) >= 0) {
-            request.setAttribute("activity_started", true);
-        } else {
-            request.setAttribute("activity_started", false);
-        }
-        if (actualPay < maxUser) {
-            request.setAttribute("user_limited", false);
-        } else {
-            request.setAttribute("user_limited", true);
-        }
+        request.setAttribute("game_status", gameStatus(request, response));
         request.getRequestDispatcher("/WEB-INF/views/user/home.jsp").forward(request, response);
     }
 
@@ -99,71 +75,86 @@ public class UserServlet extends HttpServlet {
     }
 
     private void toPay(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String gameStatus = gameStatus(request, response);
+        if (gameStatus.equals(GameStatus.NOT_START) || gameStatus.equals(GameStatus.GAME_OVER)) {
+            response.sendRedirect("home");
+            return;
+        }
         HttpSession session = request.getSession();
         Object userObj = session.getAttribute(Constants.LOGINED_USER);
         if (userObj != null) {
             User user = (User) userObj;
             ServletContext servletContext = request.getServletContext();
-            Object totalJoinObj = servletContext.getAttribute(Constants.TOTAL_JOIN);
-            Object actualPayObj = servletContext.getAttribute(Constants.ACTUAL_PAY);
-            Object userMapObj = servletContext.getAttribute(Constants.USER_MAP);
-            Object userPayedMapObj = servletContext.getAttribute(Constants.USER_PAYED_MAP);
+            int totalJoin = (Integer) servletContext.getAttribute(Constants.TOTAL_JOIN);
+            Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
+            Map<String, String> userPayedMap = (HashMap<String, String>) servletContext.getAttribute(Constants.USER_PAYED_MAP);
+            List<Integer> unpayedOrder = (ArrayList<Integer>) servletContext.getAttribute(Constants.UNPAYED_ORDER);
 
+            int order = 0;
             synchronized (Object.class) {
-                // 用户与支付状态的对应关系
-                if (userPayedMapObj == null) {
-                    Map<String, String> userPayedMap = new HashMap<String, String>();
-                    userPayedMap.put(user.getOpenId(), PayStatus.NOT_PAYED);
-                    servletContext.setAttribute(Constants.USER_PAYED_MAP, userPayedMap);
-                } else {
-                    Map<String, String> userPayedMap = (HashMap<String, String>) userPayedMapObj;
-                    Object payedObj = userPayedMap.get(user.getOpenId());
-                    if (payedObj != null) {
-                        String payStatus = (String) payedObj;
-                        if (payStatus.equals(PayStatus.SUCCESS)) {
-                            request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
-                            return;
-                        }
-                    } else {
-                        userPayedMap.put(user.getOpenId(), PayStatus.NOT_PAYED);
-                        servletContext.setAttribute(Constants.USER_PAYED_MAP, userPayedMap);
+                Object payedObj = userPayedMap.get(user.getOpenId());
+                if (payedObj != null) {
+                    String payStatus = (String) payedObj;
+                    if (payStatus.equals(PayStatus.SUCCESS)) {
+                        request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(user.getPayedOrder()));
+                        request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
+                        return;
                     }
                 }
-                // 参与总人数
-                int totalJoin = 1;
-                if (totalJoinObj == null) {
-                    servletContext.setAttribute(Constants.TOTAL_JOIN, totalJoin);
-                } else {
-                    totalJoin = (Integer) totalJoinObj;
-                    totalJoin += 1;
-                    servletContext.setAttribute(Constants.TOTAL_JOIN, totalJoin);
-                }
-                // 实际支付人数
-                if (actualPayObj == null) {
-                    int actualPayInt = 0;
-                    servletContext.setAttribute(Constants.ACTUAL_PAY, actualPayInt);
-                }
-                // 支付顺序与用户的对应关系
-                if (userMapObj == null) {
-                    Map<Integer, User> userMap = new HashMap<Integer, User>();
-                    userMap.put(totalJoin, user);
+                if (unpayedOrder.size() <= 0) {
+                    order = totalJoin + 1;
+                    servletContext.setAttribute(Constants.TOTAL_JOIN, order);
+                    userMap.put(order, user);
                     servletContext.setAttribute(Constants.USER_MAP, userMap);
-                } else {
-                    Map<Integer, User> userMap = (HashMap<Integer, User>) userMapObj;
-                    userMap.put(totalJoin, user);
-                    servletContext.setAttribute(Constants.USER_MAP, userMap);
-                }
 
-                user.setPayedFee(totalJoin);
-                user.setPayedOrder(totalJoin);
-                request.setAttribute("total_fee", totalJoin);
-                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(totalJoin));
+                } else {
+                    // 有未支付的顺序，则应该先把未支付的顺序使用完
+                    Collections.sort(unpayedOrder);
+                    order = unpayedOrder.get(0);
+                    userMap.put(order, user);
+                    servletContext.setAttribute(Constants.USER_MAP, userMap);
+                }
             }
+            user.setPayedFee(order);
+            user.setPayedOrder(order);
+            request.setAttribute("total_fee", order);
+            request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(order));
             request.getRequestDispatcher("/WEB-INF/views/user/topay.jsp").forward(request, response);
         } else {
             response.sendRedirect("/index");
         }
     }
 
+    private String gameStatus(HttpServletRequest request, HttpServletResponse response) {
+        ServletContext servletContext = request.getServletContext();
+        String beginTime = (String) servletContext.getAttribute(ConfigConstants.ACTIVITY_BEGIN_TIME);
+        int maxUser = (Integer) servletContext.getAttribute(ConfigConstants.ACTIVITY_MAX_USER);
+        int totalJoin = (Integer) servletContext.getAttribute(Constants.TOTAL_JOIN);
+        List<Integer> unpayedOrder = (ArrayList<Integer>) servletContext.getAttribute(Constants.UNPAYED_ORDER);
+
+        boolean gameStarted = false;
+        boolean userLimited = false;
+        boolean hasOrder = false;
+
+        Calendar beginTimeCal = DateUtil.stringToCalendar(beginTime);
+        if (beginTimeCal != null && Calendar.getInstance().compareTo(beginTimeCal) >= 0) {
+            gameStarted = true;
+        }
+        if ((totalJoin >= maxUser)) {
+            userLimited = true;
+        }
+        if (unpayedOrder.size() > 0) {
+            hasOrder = true;
+        }
+        if (!gameStarted) {
+            return GameStatus.NOT_START;
+        } else if (!userLimited) {
+            return GameStatus.GAMING;
+        } else if (hasOrder) {
+            return GameStatus.GAMING;
+        } else {
+            return GameStatus.GAME_OVER;
+        }
+    }
 
 }
