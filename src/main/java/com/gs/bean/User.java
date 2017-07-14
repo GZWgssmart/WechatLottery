@@ -14,9 +14,11 @@ public class User implements Serializable {
     private String openId;
     private String unionId;
     private String wechatNickname;
+    private String headimg;
     private String wechatNo;
     private String gender;
     private String phone;
+    private String hidePhone;
     private double payedFee;
     private Date payedTime;
     private int payedOrder;
@@ -72,6 +74,14 @@ public class User implements Serializable {
         this.wechatNickname = wechatNickname;
     }
 
+    public String getHeadimg() {
+        return headimg;
+    }
+
+    public void setHeadimg(String headimg) {
+        this.headimg = headimg;
+    }
+
     public String getWechatNo() {
         return wechatNo;
     }
@@ -94,6 +104,14 @@ public class User implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getHidePhone() {
+        return hidePhone;
+    }
+
+    public void setHidePhone(String hidePhone) {
+        this.hidePhone = hidePhone;
     }
 
     public double getPayedFee() {

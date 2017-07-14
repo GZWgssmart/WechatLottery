@@ -6,6 +6,7 @@ import com.gs.bean.User;
 import com.gs.common.Constants;
 import com.gs.common.WebUtil;
 import com.gs.common.WechatAPI;
+import com.gs.common.util.PhoneUtil;
 import com.gs.service.UserService;
 import com.gs.service.impl.UserServiceImpl;
 import org.apache.http.HttpEntity;
@@ -64,6 +65,7 @@ public class LoginServlet extends HttpServlet {
                 if (u != null) { // 数据库中已经有用户数据
                     session.setAttribute(Constants.LOGINED_USER, u);
                     if (u.getPhone() != null && !u.getPhone().equals("")) {
+                        u.setHidePhone(PhoneUtil.hidePhone(u.getPhone()));
                         response.sendRedirect("/user/home");
                     } else {
                         response.sendRedirect("/user/phone");
@@ -77,6 +79,7 @@ public class LoginServlet extends HttpServlet {
                     User user = new User();
                     user.setOpenId(openid);
                     user.setWechatNickname(userInfoJSON.getString("nickname"));
+                    user.setHeadimg(userInfoJSON.getString("headimgurl"));
                     user.setAccessToken(accessToken);
                     int sex = userInfoJSON.getInteger("sex");
                     if (sex == 1) {

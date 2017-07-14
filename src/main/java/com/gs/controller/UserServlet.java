@@ -6,6 +6,7 @@ import com.gs.common.*;
 import com.gs.common.bean.ControllerResult;
 import com.gs.common.util.DateUtil;
 import com.gs.common.util.DecimalUtil;
+import com.gs.common.util.PhoneUtil;
 import com.gs.service.UserService;
 import com.gs.service.impl.UserServiceImpl;
 
@@ -65,6 +66,7 @@ public class UserServlet extends HttpServlet {
             String phone = request.getParameter("phone");
             userService.updatePhone(openId, phone);
             user.setPhone(phone);
+            user.setHidePhone(PhoneUtil.hidePhone(phone));
             session.setAttribute(Constants.LOGINED_USER, user);
             response.setContentType("text/json;charset=utf-8");
             PrintWriter out = response.getWriter();
@@ -111,6 +113,7 @@ public class UserServlet extends HttpServlet {
                     // 有未支付的顺序，则应该先把未支付的顺序使用完
                     Collections.sort(unpayedOrder);
                     order = unpayedOrder.get(0);
+                    unpayedOrder.remove(0);
                     userMap.put(order, user);
                     servletContext.setAttribute(Constants.USER_MAP, userMap);
                 }
@@ -131,6 +134,11 @@ public class UserServlet extends HttpServlet {
         int maxUser = (Integer) servletContext.getAttribute(ConfigConstants.ACTIVITY_MAX_USER);
         int totalJoin = (Integer) servletContext.getAttribute(Constants.TOTAL_JOIN);
         List<Integer> unpayedOrder = (ArrayList<Integer>) servletContext.getAttribute(Constants.UNPAYED_ORDER);
+        boolean gameOver = (Boolean) servletContext.getAttribute(ConfigConstants.GAME_OVER);
+
+        if (gameOver) {
+            return GameStatus.GAME_OVER;
+        }
 
         boolean gameStarted = false;
         boolean userLimited = false;

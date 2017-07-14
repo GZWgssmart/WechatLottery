@@ -4,12 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.gs.bean.User;
-import com.gs.common.Constants;
-import com.gs.common.PayStatus;
-import com.gs.common.WebUtil;
-import com.gs.common.WechatAPI;
+import com.gs.common.*;
 import com.gs.common.bean.ControllerResult;
 import com.gs.common.util.DecimalUtil;
+import com.gs.common.util.PhoneUtil;
+import com.gs.service.UserService;
+import com.gs.service.impl.UserServiceImpl;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -20,6 +20,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
@@ -39,6 +40,12 @@ import java.util.*;
 public class PayServlet extends HttpServlet {
     private static final long serialVersionUID = -7542686547304843900L;
 
+    private UserService userService;
+
+    public PayServlet() {
+        this.userService = new UserServiceImpl();
+    }
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String method = WebUtil.getReqMethod(req);
@@ -49,7 +56,86 @@ public class PayServlet extends HttpServlet {
         } else if (method.equals("pay_result")) {
             // 由项目传递回来的支付结果
             payResult(req, resp);
+        } else if (method.equals("all_payed")) {
+            allPayed(req, resp);
+        } else if (method.equals("lottery")) {
+            lottery(req, resp);
+        } else if (method.equals("confirm")) {
+            confirm(req, resp);
+        } else if (method.equals("prized_users")) {
+            prizedUsers(req, resp);
         }
+    }
+
+    private void prizedUsers(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<User> users = userService.queryAllPrized();
+        req.setAttribute("prized_users", users);
+        req.getRequestDispatcher("/WEB-INF/views/user/prized_users.jsp").forward(req, resp);
+    }
+
+    private void confirm(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ServletContext servletContext = req.getServletContext();
+        Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
+        Set<Map.Entry<Integer, User>> entrySet = userMap.entrySet();
+        Iterator<Map.Entry<Integer, User>> entryIterator = entrySet.iterator();
+        List<User> users = new ArrayList<User>();
+        int i = 0;
+        while (entryIterator.hasNext()) {
+            Map.Entry<Integer, User> entry = entryIterator.next();
+            users.add(entry.getValue());
+        }
+        userService.batchUpdate(users);
+        resp.sendRedirect("/pay/prized_users");
+    }
+
+    private void lottery(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext servletContext = req.getServletContext();
+        int prizedCount = (Integer) servletContext.getAttribute(ConfigConstants.PRIZED_COUNT);
+        int actualPay = (Integer) servletContext.getAttribute(Constants.ACTUAL_PAY);
+        Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
+        String prizedUsers = (String) servletContext.getAttribute(ConfigConstants.PRIZED_USERS);
+        List<User> prizedUser = new ArrayList<User>();
+        Set<Integer> keySet = userMap.keySet();
+        Iterator<Integer> keySetIte = keySet.iterator();
+        List<Integer> orders = new ArrayList<Integer>();
+        if (prizedCount > actualPay) {
+            prizedCount = actualPay;
+        }
+        while (keySetIte.hasNext()) {
+            int order = keySetIte.next();
+            User u = userMap.get(order);
+            if (u.getTranId() != null && !u.getTranId().equals("")) {
+                orders.add(order);
+            }
+        }
+        Collections.shuffle(orders);
+        String[] prizedUserArray = null;
+        if (prizedUsers != null && !prizedUsers.trim().equals("")) {
+            prizedUserArray = prizedUsers.split(",");
+            prizedCount = prizedCount - prizedUserArray.length;
+            for (int i = 0, len = prizedUserArray.length; i < len; i++) {
+                User u = new User();
+                String[] nameAndPhone = prizedUserArray[i].split(":");
+                u.setWechatNickname(nameAndPhone[0]);
+                u.setPhone(nameAndPhone[1]);
+                u.setHidePhone(PhoneUtil.hidePhone(nameAndPhone[1]));
+                prizedUser.add(u);
+            }
+        }
+        List<Integer> prized = orders.subList(0, prizedCount);
+        for (int i = 0, size = prized.size(); i < size; i++) {
+            User user = userMap.get(prized.get(i));
+            user.setPrized(1);
+            prizedUser.add(user);
+        }
+        servletContext.setAttribute(Constants.USER_MAP, userMap);
+        req.setAttribute("prized_users", prizedUser);
+        req.setAttribute("lottery", "y");
+        req.getRequestDispatcher("/WEB-INF/views/user/prized_users.jsp").forward(req, resp);
+    }
+
+    private void allPayed(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/views/admin/all_payed.jsp").forward(req, resp);
     }
 
     private void pay(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -159,6 +245,7 @@ public class PayServlet extends HttpServlet {
                 String outTradeNo = resultMap.get("out_trade_no");
                 user.setTradeNo(outTradeNo);
                 user.setTranId(tranId);
+                user.setHidePhone(PhoneUtil.hidePhone(user.getPhone()));
                 servletContext.setAttribute(Constants.USER_MAP, userMap);
                 synchronized (Object.class) {
                     userPayedMap.put(openId, PayStatus.SUCCESS);
@@ -189,26 +276,20 @@ public class PayServlet extends HttpServlet {
                 double payedFee = user.getPayedFee();
                 int payedOrder = user.getPayedOrder();
                 String payResult = req.getParameter("pay_result");
-                int unusedOrder = 0;
-                if (unpayedOrder.size() <= 0) {
-                    unusedOrder = payedOrder;
-                } else {
-                    unusedOrder = unpayedOrder.get(unpayedOrder.size() - 1) + 1;
-                }
-                Collections.sort(unpayedOrder);
                 if (payResult != null && payResult.equals("cancel")) {
                     // 取消支付
                     synchronized (Object.class) {
                         userMap.remove(payedOrder);
-                        unpayedOrder.add(unusedOrder);
+                        unpayedOrder.add(payedOrder);
                     }
                 } else if (payResult != null && payResult.equals("fail")) {
                     // 支付失败
                     synchronized (Object.class) {
                         userMap.remove(payedOrder);
-                        unpayedOrder.add(unusedOrder);
+                        unpayedOrder.add(payedOrder);
                     }
                 }
+                servletContext.setAttribute(Constants.USER_MAP, userMap);
                 resp.setContentType("text/json;charset=utf-8");
                 PrintWriter out = resp.getWriter();
                 out.println(JSON.toJSONString(ControllerResult.getSuccessResult("跳转到用户首页")));

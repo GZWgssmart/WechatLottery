@@ -12,6 +12,9 @@ public final class Constants {
     public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     public static final String LOGINED_USER = "user";
+    public static final String LOGINED_ADMIN = "admin";
+
+    public static final String LOGO_IMG = "logo_img";
 
     /**
      * 共多少人已经参与

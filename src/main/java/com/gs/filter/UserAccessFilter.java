@@ -12,11 +12,11 @@ import java.io.IOException;
 /**
  * Created by Wang Genshen on 2017-07-07.
  */
-@WebFilter(filterName = "AccessFilter", urlPatterns = {"/user/*"})
-public class AccessFilter implements Filter {
+@WebFilter(filterName = "UserAccessFilter", urlPatterns = {"/user/*"})
+public class UserAccessFilter implements Filter {
 
     public void destroy() {
-        System.out.println("access filter destroy...");
+        System.out.println("user access filter destroy...");
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
@@ -34,6 +34,6 @@ public class AccessFilter implements Filter {
     }
 
     public void init(FilterConfig config) throws ServletException {
-        System.out.println("init access filter...");
+        System.out.println("init user access filter...");
     }
 }

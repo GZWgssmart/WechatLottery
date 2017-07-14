@@ -22,7 +22,7 @@
 <body>
     <div class="row none-box">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 none-box">
-            <img src="<%=path %>/images/sing.jpg" class="img-responsive"/>
+            <img src="<%=path %>/${applicationScope.logo_img}" class="img-responsive"/>
         </div>
     </div>
     <div class="row none-box">

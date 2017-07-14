@@ -10,6 +10,7 @@ CREATE TABLE t_user(
   openid VARCHAR(200) COMMENT 'openid',
   unionid VARCHAR(200) COMMENT '联合id',
   wechat_nickname VARCHAR(100) COMMENT '微信昵称',
+  headimg VARCHAR(500) COMMENT '头像地址',
   wechat_no VARCHAR(100) COMMENT '微信号',
   phone VARCHAR(11) COMMENT '手机号',
   gender VARCHAR(2) COMMENT '性别',

@@ -31,12 +31,12 @@ function toHomePage() {
 
 function payFail() {
     swal("微信支付服务有问题，请稍候再试", "", "error");
-    setTimeout("payFailResult()", 3000);
+    payFailResult();
 }
 
 function cancelPay() {
     swal("取消支付", "", "warning");
-    setTimeout("cancelPayResult()", 3000);
+    cancelPayResult();
 }
 
 function paySuccess() {
@@ -51,7 +51,7 @@ function payTimeout() {
 function payFailResult() {
     $.get(contextPath + "/pay/pay_result?pay_result=fail",
         function (data) {
-            toHomePage();
+            setTimeout("toHomePage()", 3000);
         }, "json"
     );
 }
@@ -59,7 +59,25 @@ function payFailResult() {
 function cancelPayResult() {
     $.get(contextPath + "/pay/pay_result?pay_result=cancel",
         function (data) {
-            toHomePage();
+            setTimeout("toHomePage()", 3000);
         }, "json"
     );
+}
+
+function checkFile(name, index, type, size) {
+    var file = document.getElementsByName(name)[index].files[0];
+    if (file != undefined) {
+        var fileName = file.name;
+        var fileType = fileName.substring(fileName.lastIndexOf('.'), fileName.length);
+        var maxSize = size * 1024 * 1024;
+        if (file.size >= maxSize) {
+            swal("文件大小最大为" + size + "MB", "", "warning");
+            return false;
+        }
+        if (type.indexOf(fileType.toLocaleLowerCase()) < 0) {
+            swal("文件后缀只能为" + type, "", "warning");
+            return false;
+        }
+    }
+    return true;
 }

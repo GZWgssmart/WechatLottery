@@ -13,4 +13,6 @@ public interface UserDAO extends BaseDAO<Integer, User> {
 
     public void updatePhone(String openid, String phone);
 
+    public void batchUpdate(List<User> users);
+
 }

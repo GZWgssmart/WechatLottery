@@ -12,4 +12,8 @@ public class WebUtil {
         return req.getRequestURI().substring(uri.lastIndexOf("/") + 1);
     }
 
+    public static String getRootPath(HttpServletRequest request) {
+        return request.getServletContext().getRealPath("/");
+    }
+
 }

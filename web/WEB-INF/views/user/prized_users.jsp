@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Wang Genshen
@@ -13,23 +14,23 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>已支付</title>
+    <title>所有中奖用户</title>
     <link href="<%=path %>/plugins/bootstrap/bootstrap.min.css" rel="stylesheet"/>
     <link href="<%=path %>/css/main.css" rel="stylesheet" />
 </head>
 <body>
 <div class="row none-box">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 none-box">
-        <img src="<%=path %>/${applicationScope.logo_img}" class="img-responsive"/>
-    </div>
+    <p class="col-lg-12 text-center text-primary">恭喜所有中奖用户！</p>
+    <c:forEach items="${requestScope.prized_users}" var="user">
+        <div class="col-lg-4">
+            ${user.wechatNickname}&nbsp;${user.hidePhone}
+        </div>
+    </c:forEach>
 </div>
 <div class="row none-box">
-    <div class="col-xs-12 col-sm-12 com-md-12 col-lg-12">
-        <h4>
-            欢迎您：${sessionScope.user.wechatNickname}
-        </h4>
-        <p>您已成功支付${requestScope.total_fee_yuan}元，无需再参与！</p>
-    </div>
+    <c:if test="${requestScope.lottery == 'y'}">
+        <a href="<%=path %>/pay/confirm" class="col-xs-offset-3 col-xs-6 col-lg-offset-4 col-lg-4 btn btn-primary">确认</a>
+    </c:if>
 </div>
 </body>
 <script src="<%=path %>/plugins/jquery-3.2.1.min.js"></script>

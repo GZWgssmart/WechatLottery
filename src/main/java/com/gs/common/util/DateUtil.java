@@ -25,4 +25,13 @@ public class DateUtil {
         return null;
     }
 
+    public static String dateToString(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN);
+        return sdf.format(date);
+    }
+
+    public static java.sql.Date convert(java.util.Date date) {
+        return new java.sql.Date(date.getTime());
+    }
+
 }

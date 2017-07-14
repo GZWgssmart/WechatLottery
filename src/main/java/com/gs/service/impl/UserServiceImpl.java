@@ -61,10 +61,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryAllPrized() {
-        return null;
+        return userDAO.queryAllPrized();
     }
 
     public void updatePhone(String openid, String phone) {
         userDAO.updatePhone(openid, phone);
+    }
+
+    public void batchUpdate(List<User> users) {
+        userDAO.batchUpdate(users);
     }
 }
