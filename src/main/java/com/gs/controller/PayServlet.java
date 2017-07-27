@@ -6,8 +6,9 @@ import com.github.wxpay.sdk.WXPayUtil;
 import com.gs.bean.User;
 import com.gs.common.*;
 import com.gs.common.bean.ControllerResult;
-import com.gs.common.util.DecimalUtil;
 import com.gs.common.util.PhoneUtil;
+import com.gs.common.wechat.WechatAPI;
+import com.gs.common.wechat.WechatUtil;
 import com.gs.service.UserService;
 import com.gs.service.impl.UserServiceImpl;
 import org.apache.http.HttpEntity;
@@ -20,7 +21,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
@@ -146,81 +146,23 @@ public class PayServlet extends HttpServlet {
         }
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(Constants.LOGINED_USER);
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(WechatAPI.ORDER_URL);
-        httpPost.addHeader("Content-Type", "text/xml");
-        try {
-            // 获取预支付id需要提交的数据
-            Map<String, String> reqData = prepayData(user.getOpenId(), req.getRemoteAddr(), order);
-            String data = WXPayUtil.mapToXml(reqData);
-            System.out.println("post data: \n" + data);
-            StringEntity stringEntity = new StringEntity(data, Constants.DEFAULT_ENCODING);
-            httpPost.setEntity(stringEntity);
-            String result = httpclient.execute(httpPost, responseHandler);
-            if (result != null) {
-                result = new String(result.getBytes(Constants.ISO_ENCODING), Constants.DEFAULT_ENCODING);
-            }
-            System.out.println("result: \n" + result);
-            Map<String, String> prepayData = WXPayUtil.xmlToMap(result); // 获取预支付结果
-            // 正式付款需要提交的数据
-            Map<String, String> payData = payData(prepayData);
-            req.setAttribute("appId", WechatAPI.APP_ID);
-            req.setAttribute("timeStamp", payData.get("timeStamp"));
-            req.setAttribute("nonceStr", payData.get("nonceStr"));
-            req.setAttribute("packages", payData.get("package"));
-            req.setAttribute("paySign", payData.get("paySign"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        WechatUtil wechatUtil = new WechatUtil();
+        Map<String, String> prepayResult = wechatUtil.prepayResult(user.getOpenId(), req.getRemoteAddr(), "抽奖付款", order);
+        // 正式付款需要提交的数据
+        Map<String, String> payData = wechatUtil.payData(prepayResult);
+        req.setAttribute("appId", WechatAPI.APP_ID);
+        req.setAttribute("timeStamp", payData.get("timeStamp"));
+        req.setAttribute("nonceStr", payData.get("nonceStr"));
+        req.setAttribute("packages", payData.get("package"));
+        req.setAttribute("paySign", payData.get("paySign"));
         req.getRequestDispatcher("/WEB-INF/views/user/pay.jsp").forward(req, resp); // 预支付数据转发到页面，调用js支付
     }
 
-    private ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-
-        @Override
-        public String handleResponse(final HttpResponse response) throws IOException {
-            int status = response.getStatusLine().getStatusCode();
-            if (status >= 200 && status < 300) {
-                HttpEntity entity = response.getEntity();
-                return entity != null ? EntityUtils.toString(entity) : null;
-            } else {
-                throw new ClientProtocolException("Unexpected response status: " + status);
-            }
-        }
-
-    };
-
-    /**
-     * <xml><appid><![CDATA[wxbb5d044b94663978]]></appid>
-     <bank_type><![CDATA[CFT]]></bank_type>
-     <cash_fee><![CDATA[1]]></cash_fee>
-     <fee_type><![CDATA[CNY]]></fee_type>
-     <is_subscribe><![CDATA[Y]]></is_subscribe>
-     <mch_id><![CDATA[1483257182]]></mch_id>
-     <nonce_str><![CDATA[77c2b9fdd98f4304abe5b467aefbcfd8]]></nonce_str>
-     <openid><![CDATA[olEzovssKwMKtvyEe7rCAaqr90VM]]></openid>
-     <out_trade_no><![CDATA[b6b2b4c8d2334f11b2cebd7a992d3f7c]]></out_trade_no>
-     <result_code><![CDATA[SUCCESS]]></result_code>
-     <return_code><![CDATA[SUCCESS]]></return_code>
-     <sign><![CDATA[856EFA24722D8EC7DC69C31066C5F0A6]]></sign>
-     <time_end><![CDATA[20170706150303]]></time_end>
-     <total_fee>1</total_fee>
-     <trade_type><![CDATA[JSAPI]]></trade_type>
-     <transaction_id><![CDATA[4004602001201707069181296658]]></transaction_id>
-     </xml>
-     */
     private void result(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("***********************notify_url*************************");
-        ServletInputStream in = req.getInputStream();
-        byte[] bytes = new byte[1024];
-        int total = 0;
-        StringBuffer result = new StringBuffer();
-        while ((total = in.read(bytes)) != -1) {
-            result.append(new String(bytes, 0, total));
-        }
-        System.out.println(result);
+        WechatUtil wechatUtil = new WechatUtil();
+        Map<String, String> resultMap = wechatUtil.payResult(req);
         try {
-            Map<String, String> resultMap = WXPayUtil.xmlToMap(result.toString());
             String resultCode = resultMap.get("result_code");
             if (resultCode != null && resultCode.equals("SUCCESS")) {
                 String totalFee = resultMap.get("total_fee"); // 支付金额
@@ -257,9 +199,7 @@ public class PayServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        resp.setContentType("text/xml;charset=utf-8");
-        PrintWriter out = resp.getWriter();
-        out.write(WechatAPI.NOTIFY_RESULT);
+        wechatUtil.responsePayNotify(resp);
     }
 
     private void payResult(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -297,39 +237,4 @@ public class PayServlet extends HttpServlet {
         }
     }
 
-    private Map<String, String> prepayData(String openid, String ip, int totalFee) {
-        Map<String, String> reqData = new HashMap<String, String>();
-        reqData.put("appid", WechatAPI.APP_ID);
-        reqData.put("mch_id", WechatAPI.MCH_ID);
-        reqData.put("nonce_str", WXPayUtil.generateUUID());
-        reqData.put("sign_type", WXPayConstants.MD5);
-        reqData.put("openid", openid);
-        reqData.put("body", "付款");
-        reqData.put("out_trade_no", WXPayUtil.generateUUID());
-        reqData.put("total_fee", totalFee +"");
-        reqData.put("trade_type", WechatAPI.TRADE_JSAPI);
-        reqData.put("spbill_create_ip", ip);
-        reqData.put("notify_url", WechatAPI.NOTIFY_URL);
-        try {
-            reqData.put("sign", WXPayUtil.generateSignature(reqData, WechatAPI.API_KEY, WXPayConstants.SignType.MD5));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return reqData;
-    }
-
-    private Map<String, String> payData(Map<String, String> prepayData) {
-        Map<String, String> data = new HashMap<String, String>();
-        data.put("appId", WechatAPI.APP_ID);
-        data.put("package", "prepay_id=" + prepayData.get("prepay_id"));
-        data.put("timeStamp", WXPayUtil.getCurrentTimestamp() + "");
-        data.put("nonceStr", WXPayUtil.generateUUID());
-        data.put("signType", WXPayConstants.MD5);
-        try {
-            data.put("paySign", WXPayUtil.generateSignature(data, WechatAPI.API_KEY, WXPayConstants.SignType.MD5));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
 }

@@ -1,5 +1,4 @@
-<%@ page import="com.gs.common.Constants" %>
-<%@ page import="com.gs.common.WechatAPI" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Wang Genshen
   Date: 2017-06-29

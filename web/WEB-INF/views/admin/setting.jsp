@@ -29,7 +29,7 @@
                 <label for="prizedCount">活动中奖人数</label>
                 <input type="number" class="form-control" id="prizedCount" name="prizedCount" value="${applicationScope.prized_count}"/>
                 <label for="prizedUsers">配置内部中奖用户（格式为微信昵称:手机号,微信昵称:手机号）</label>
-                <input type="textarea" class="form-control" id="prizedUsers" name="prizedUsers" value="${applicationScope.prized_users}"/>
+                <input type="text" class="form-control" id="prizedUsers" name="prizedUsers" value="${applicationScope.prized_users}"/>
                 <input class="btn btn-primary" type="submit" value="修改活动配置" />
             </div>
         </form>

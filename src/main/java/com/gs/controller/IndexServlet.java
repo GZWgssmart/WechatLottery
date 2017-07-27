@@ -2,8 +2,7 @@ package com.gs.controller;
 
 import com.gs.common.ConfigConstants;
 import com.gs.common.Constants;
-import com.gs.common.WechatAPI;
-import com.gs.common.util.DateUtil;
+import com.gs.common.wechat.WechatAPI;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,10 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Wang Genshen on 2017-07-04.

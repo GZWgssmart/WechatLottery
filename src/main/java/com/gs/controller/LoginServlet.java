@@ -5,8 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.gs.bean.User;
 import com.gs.common.Constants;
 import com.gs.common.WebUtil;
-import com.gs.common.WechatAPI;
+import com.gs.common.wechat.WechatAPI;
 import com.gs.common.util.PhoneUtil;
+import com.gs.common.wechat.WechatUtil;
 import com.gs.service.UserService;
 import com.gs.service.impl.UserServiceImpl;
 import org.apache.http.HttpEntity;
@@ -50,10 +51,8 @@ public class LoginServlet extends HttpServlet {
     private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String code = request.getParameter("code");
         String state = request.getParameter("state");
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        // 微信授权登录API
-        HttpGet httpGet = new HttpGet(WechatAPI.GET_ACCESS_TOKEN_URL.replace("{CODE}", code));
-        String accessor = httpclient.execute(httpGet, responseHandler);
+        WechatUtil wechatUtil = new WechatUtil();
+        String accessor = wechatUtil.authLogin(code);
         if (accessor != null) {
             JSONObject accessorJSON = JSON.parseObject(accessor);
             String accessToken = accessorJSON.getString("access_token");
@@ -71,9 +70,7 @@ public class LoginServlet extends HttpServlet {
                         response.sendRedirect("/user/phone");
                     }
                 } else { // 数据库没有用户数据，则通过微信接口去获取用户数据后保存到数据库中
-                    httpGet = new HttpGet(WechatAPI.GET_USER_INFO.replace("{ACCESS_TOKEN}", accessToken).replace("{OPENID}", openid));
-                    String userInfo = httpclient.execute(httpGet, responseHandler);
-                    httpclient.close();
+                    String userInfo = wechatUtil.getUserInfo(accessToken, openid);
                     userInfo = new String(userInfo.getBytes(Constants.ISO_ENCODING), Constants.DEFAULT_ENCODING); // 转码
                     JSONObject userInfoJSON = JSON.parseObject(userInfo);
                     User user = new User();
@@ -101,21 +98,5 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/index");
         }
     }
-
-
-    private ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-
-        @Override
-        public String handleResponse(final HttpResponse response) throws IOException {
-            int status = response.getStatusLine().getStatusCode();
-            if (status >= 200 && status < 300) {
-                HttpEntity entity = response.getEntity();
-                return entity != null ? EntityUtils.toString(entity) : null;
-            } else {
-                throw new ClientProtocolException("Unexpected response status: " + status);
-            }
-        }
-
-    };
 
 }
