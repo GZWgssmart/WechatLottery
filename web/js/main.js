@@ -81,3 +81,12 @@ function checkFile(name, index, type, size) {
     }
     return true;
 }
+
+function pay() {
+    var q = $("#quantity").val();
+    if (q.trim() == "") {
+        swal("请输入购买票数！", "", "error");
+        return false;
+    }
+    return true;
+}

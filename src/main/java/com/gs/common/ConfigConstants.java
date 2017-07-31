@@ -12,4 +12,6 @@ public final class ConfigConstants {
     public static final String PRIZED_USERS = "prized_users";
     public static final String GAME_OVER = "game_over";
     public static final String ADMIN_PWD = "admin_pwd";
+
+    public static final String TICKET_PRICE = "ticket_price";
 }

@@ -32,6 +32,7 @@ public class AutoLoadListener implements ServletContextListener {
         servletContext.setAttribute(ConfigConstants.PRIZED_USERS, "");
         servletContext.setAttribute(ConfigConstants.GAME_OVER, false);
         servletContext.setAttribute(ConfigConstants.ADMIN_PWD, "admin654321");
+        servletContext.setAttribute(ConfigConstants.TICKET_PRICE, 300.0);
 
         servletContext.setAttribute(Constants.TOTAL_JOIN, 0);
         servletContext.setAttribute(Constants.ACTUAL_PAY, 0);
