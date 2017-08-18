@@ -39,13 +39,13 @@ public class AdminLoginServlet extends HttpServlet {
             if (pwd.equals(adminPwd)) {
                 HttpSession session = req.getSession();
                 session.setAttribute(Constants.LOGINED_ADMIN, "admin");
-                resp.sendRedirect("/setting/setting");
+                resp.sendRedirect(req.getContextPath() + "/setting/setting");
             } else {
                 req.setAttribute("msg", "登录密码错误！");
                 req.getRequestDispatcher("/WEB-INF/views/admin/login.jsp").forward(req, resp);
             }
         } else {
-            resp.sendRedirect("/admin/login_page");
+            resp.sendRedirect(req.getContextPath() + "/admin/login_page");
         }
     }
 

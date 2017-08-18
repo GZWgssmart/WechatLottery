@@ -65,9 +65,9 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute(Constants.LOGINED_USER, u);
                     if (u.getPhone() != null && !u.getPhone().equals("")) {
                         u.setHidePhone(PhoneUtil.hidePhone(u.getPhone()));
-                        response.sendRedirect("/user/home");
+                        response.sendRedirect(request.getContextPath() + "/user/home");
                     } else {
-                        response.sendRedirect("/user/phone");
+                        response.sendRedirect(request.getContextPath() + "/user/phone");
                     }
                 } else { // 数据库没有用户数据，则通过微信接口去获取用户数据后保存到数据库中
                     String userInfo = wechatUtil.getUserInfo(accessToken, openid);
@@ -89,13 +89,13 @@ public class LoginServlet extends HttpServlet {
                     user.setUnionId(userInfoJSON.getString("unionid"));
                     userService.add(user);
                     session.setAttribute(Constants.LOGINED_USER, user);
-                    response.sendRedirect("/user/phone");
+                    response.sendRedirect(request.getContextPath() + "/user/phone");
                 }
             } else {
-                response.sendRedirect("/index");
+                response.sendRedirect(request.getContextPath() + "/index");
             }
         } else {
-            response.sendRedirect("/index");
+            response.sendRedirect(request.getContextPath() + "/index");
         }
     }
 

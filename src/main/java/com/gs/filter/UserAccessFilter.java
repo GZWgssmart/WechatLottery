@@ -26,7 +26,7 @@ public class UserAccessFilter implements Filter {
             HttpSession session = request.getSession();
             Object obj = session.getAttribute(Constants.LOGINED_USER);
             if (obj == null) {
-                response.sendRedirect("/index");
+                response.sendRedirect(((HttpServletRequest) req).getContextPath() + "/index");
             } else {
                 chain.doFilter(req, resp);
             }

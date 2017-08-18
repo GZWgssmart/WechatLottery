@@ -24,10 +24,10 @@
         <p class="col-lg-offset-3">已支付人数：${applicationScope.actual_pay }</p>
         <a class="col-lg-offset-3 col-lg-6 btn btn-primary" href="<%=path %>/pay/lottery">随机抽出中奖名额！</a>
         <div class="col-lg-12">
-        <c:forEach items="${applicationScope.user_map}" var="map">
-            <c:if test="${!empty(map.value.tranId)}">
+        <c:forEach items="${applicationScope.payed_users}" var="user">
+            <c:if test="${!empty(user.tranId)}">
                 <div class="col-lg-2" style="margin-top: 20px;">
-                        ${map.value.wechatNickname}&nbsp;${map.value.hidePhone}
+                        ${user.wechatNickname}&nbsp;${user.hidePhone}
                 </div>
             </c:if>
         </c:forEach>

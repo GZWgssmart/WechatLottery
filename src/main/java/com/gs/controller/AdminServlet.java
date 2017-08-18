@@ -38,14 +38,14 @@ public class AdminServlet extends HttpServlet {
     private void endGame(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ServletContext servletContext = req.getServletContext();
         servletContext.setAttribute(ConfigConstants.GAME_OVER, true);
-        resp.sendRedirect("/setting/setting");
+        resp.sendRedirect(req.getContextPath() + "/setting/setting");
     }
 
     private void startGame(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ServletContext servletContext = req.getServletContext();
         servletContext.setAttribute(ConfigConstants.ACTIVITY_BEGIN_TIME, DateUtil.dateToString(Calendar.getInstance().getTime()));
         servletContext.setAttribute(ConfigConstants.GAME_OVER, false);
-        resp.sendRedirect("/setting/setting");
+        resp.sendRedirect(req.getContextPath() + "/setting/setting");
     }
 
     private void change(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -67,7 +67,7 @@ public class AdminServlet extends HttpServlet {
         servletContext.setAttribute(ConfigConstants.ACTIVITY_MAX_USER, totalUser);
         servletContext.setAttribute(ConfigConstants.PRIZED_COUNT, prizedCount);
         servletContext.setAttribute(ConfigConstants.PRIZED_USERS, prizedUsers);
-        resp.sendRedirect("/setting/setting");
+        resp.sendRedirect(req.getContextPath() + "/setting/setting");
     }
 
     private void show(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

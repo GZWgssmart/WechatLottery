@@ -8,6 +8,8 @@ import java.util.Date;
  */
 public class User implements Serializable {
 
+    private static final long serialVersionUID = -8606057805232593670L;
+
     private int id;
     private String accessToken;
     private String accessToken1;
@@ -19,12 +21,12 @@ public class User implements Serializable {
     private String gender;
     private String phone;
     private String hidePhone;
-    private double payedFee;
+    private int payedFee;
     private Date payedTime;
-    private int payedOrder;
     private String tradeNo;
     private String tranId;
     private int prized;
+    private int chooseCount;
 
     public int getId() {
         return id;
@@ -114,11 +116,11 @@ public class User implements Serializable {
         this.hidePhone = hidePhone;
     }
 
-    public double getPayedFee() {
+    public int getPayedFee() {
         return payedFee;
     }
 
-    public void setPayedFee(double payedFee) {
+    public void setPayedFee(int payedFee) {
         this.payedFee = payedFee;
     }
 
@@ -128,14 +130,6 @@ public class User implements Serializable {
 
     public void setPayedTime(Date payedTime) {
         this.payedTime = payedTime;
-    }
-
-    public int getPayedOrder() {
-        return payedOrder;
-    }
-
-    public void setPayedOrder(int payedOrder) {
-        this.payedOrder = payedOrder;
     }
 
     public String getTradeNo() {
@@ -162,6 +156,29 @@ public class User implements Serializable {
         this.prized = prized;
     }
 
+    public int getChooseCount() {
+        return chooseCount;
+    }
+
+    public void setChooseCount(int chooseCount) {
+        this.chooseCount = chooseCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -176,7 +193,6 @@ public class User implements Serializable {
                 ", phone='" + phone + '\'' +
                 ", payedFee=" + payedFee +
                 ", payedTime=" + payedTime +
-                ", payedOrder=" + payedOrder +
                 ", tradeNo='" + tradeNo + '\'' +
                 ", tranId='" + tranId + '\'' +
                 ", prized=" + prized +

@@ -60,7 +60,7 @@ public class TicketServlet extends HttpServlet {
             double price = (Double) servletContext.getAttribute(ConfigConstants.TICKET_PRICE);
             int totalFee = DecimalUtil.yuanToCent(quantity * price);
             WechatUtil wechatUtil = new WechatUtil();
-            Map<String, String> prepayResult = wechatUtil.prepayResult(user.getOpenId(), req.getRemoteAddr(), "门票支付", totalFee);
+            Map<String, String> prepayResult = wechatUtil.prepayResult(user.getOpenId(), req.getRemoteAddr(), "门票支付", "", totalFee);
             Map<String, String> payData = wechatUtil.payData(prepayResult);
             req.setAttribute("appId", WechatAPI.APP_ID);
             req.setAttribute("timeStamp", payData.get("timeStamp"));

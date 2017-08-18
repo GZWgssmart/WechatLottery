@@ -24,4 +24,6 @@ gzyouxue.com
 支付授权目录
 http://gzyouxue.com/pay/    支付url为http://gzyouxue.com/pay/pay
 
+以上URL地址，如果涉及到ContextPath，则加入ContextPath
+
 

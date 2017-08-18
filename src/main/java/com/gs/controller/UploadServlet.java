@@ -44,6 +44,6 @@ public class UploadServlet extends HttpServlet{
         } catch (FileUploadException e) {
             e.printStackTrace();
         }
-        resp.sendRedirect("/setting/setting");
+        resp.sendRedirect(req.getContextPath() + "/setting/setting");
     }
 }

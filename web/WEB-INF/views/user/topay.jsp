@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: Wang Genshen
@@ -28,11 +30,16 @@
         <h4>
             欢迎您：${sessionScope.user.wechatNickname}
         </h4>
-        <p>您是第${requestScope.total_fee}个进入到支付，您只需支付${requestScope.total_fee_yuan}元就可参与活动大抽奖！</p>
+        <p>您共选择了${fn:length(requestScope.money_array )}次中奖次数</p>
+        <p>每一次中奖次数对应的支付金额如下：</p>
+        <c:forEach items="${requestScope.money_array }" var="money" varStatus="status">
+            ${status.count} : ${money }元<br />
+        </c:forEach>
+        <p>一共需要支付：${requestScope.total_fee_yuan }元</p>
     </div>
 </div>
 <div class="row none-box">
-    <a class="btn btn-primary col-xs-12" href="<%=path %>/pay/pay?order=${requestScope.total_fee}">确认付款</a>
+    <a class="btn btn-primary col-xs-12" href="<%=path %>/pay/pay?fee=${requestScope.total_fee}&count=${fn:length(requestScope.money_array )}">确认付款</a>
 </div>
 <div class="row none-box">
     <div class="col-xs-12">

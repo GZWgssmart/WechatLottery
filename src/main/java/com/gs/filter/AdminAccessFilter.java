@@ -26,7 +26,7 @@ public class AdminAccessFilter implements Filter {
             HttpSession session = request.getSession();
             Object obj = session.getAttribute(Constants.LOGINED_ADMIN);
             if (obj == null) {
-                response.sendRedirect("/admin/login_page");
+                response.sendRedirect(((HttpServletRequest) req).getContextPath() + "/admin/login_page");
             } else {
                 chain.doFilter(req, resp);
             }

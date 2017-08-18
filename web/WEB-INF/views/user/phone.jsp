@@ -40,7 +40,7 @@
             <input type="text" class="form-control" id="phone" name="phone" placeholder="请输入手机号" />
         </div>
 
-        <button type="button" class="btn btn-primary" onclick="updatePhone();">绑定手机号</button>
+        <button type="button" class="btn btn-primary col-xs-12" onclick="updatePhone();">绑定手机号</button>
     </form>
 
 </div>

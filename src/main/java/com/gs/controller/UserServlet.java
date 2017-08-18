@@ -45,7 +45,13 @@ public class UserServlet extends HttpServlet {
             updatePhone(request, response);
         } else if (method.equals("topay")) {
             toPay(request, response);
+        } else if (method.equals("choose_count")) {
+            showChooseCountPage(request, response);
         }
+    }
+
+    private void showChooseCountPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/views/user/choose_count.jsp").forward(request, response);
     }
 
     private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,7 +78,7 @@ public class UserServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println(JSON.toJSONString(ControllerResult.getSuccessResult("成功绑定手机号")));
         } else {
-            response.sendRedirect("/index");
+            response.sendRedirect(request.getContextPath() + "/index");
         }
     }
 
@@ -87,82 +93,52 @@ public class UserServlet extends HttpServlet {
         if (userObj != null) {
             User user = (User) userObj;
             ServletContext servletContext = request.getServletContext();
-            int totalJoin = (Integer) servletContext.getAttribute(Constants.TOTAL_JOIN);
-            Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
-            Map<String, String> userPayedMap = (HashMap<String, String>) servletContext.getAttribute(Constants.USER_PAYED_MAP);
-            List<Integer> unpayedOrder = (ArrayList<Integer>) servletContext.getAttribute(Constants.UNPAYED_ORDER);
+            List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
+            if (!payedUsers.contains(user)) {
 
-            int order = 0;
-            synchronized (Object.class) {
-                Object payedObj = userPayedMap.get(user.getOpenId());
-                if (payedObj != null) {
-                    String payStatus = (String) payedObj;
-                    if (payStatus.equals(PayStatus.SUCCESS)) {
-                        request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(user.getPayedOrder()));
-                        request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
-                        return;
-                    }
-                }
-                if (unpayedOrder.size() <= 0) {
-                    order = totalJoin + 1;
-                    servletContext.setAttribute(Constants.TOTAL_JOIN, order);
-                    userMap.put(order, user);
-                    servletContext.setAttribute(Constants.USER_MAP, userMap);
+                int count = Integer.valueOf(request.getParameter("count"));
 
-                } else {
-                    // 有未支付的顺序，则应该先把未支付的顺序使用完
-                    Collections.sort(unpayedOrder);
-                    order = unpayedOrder.get(0);
-                    unpayedOrder.remove(0);
-                    userMap.put(order, user);
-                    servletContext.setAttribute(Constants.USER_MAP, userMap);
+                Vector<Integer> payMoney = PayMoney.getPayMoney();
+                Collections.shuffle(payMoney);
+                double[] moneyArray = new double[count];
+                int total = 0;
+                for (int i = 0; i < count; i++) {
+                    int cent = payMoney.remove(i);
+                    moneyArray[i] = DecimalUtil.centToYuan(cent);
+                    total += cent;
                 }
+
+                user.setChooseCount(count);
+                user.setPayedFee(total);
+                session.setAttribute(Constants.LOGINED_USER, user);
+                request.setAttribute("total_fee", total);
+                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(total));
+                request.setAttribute("money_array", moneyArray);
+                request.getRequestDispatcher("/WEB-INF/views/user/topay.jsp").forward(request, response);
+            } else {
+                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(user.getPayedFee()));
+                request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
+                return;
             }
-            user.setPayedFee(order);
-            user.setPayedOrder(order);
-            request.setAttribute("total_fee", order);
-            request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(order));
-            request.getRequestDispatcher("/WEB-INF/views/user/topay.jsp").forward(request, response);
         } else {
-            response.sendRedirect("/index");
+            response.sendRedirect(request.getContextPath() + "/index");
         }
     }
 
     private String gameStatus(HttpServletRequest request, HttpServletResponse response) {
         ServletContext servletContext = request.getServletContext();
         String beginTime = (String) servletContext.getAttribute(ConfigConstants.ACTIVITY_BEGIN_TIME);
-        int maxUser = (Integer) servletContext.getAttribute(ConfigConstants.ACTIVITY_MAX_USER);
-        int totalJoin = (Integer) servletContext.getAttribute(Constants.TOTAL_JOIN);
-        List<Integer> unpayedOrder = (ArrayList<Integer>) servletContext.getAttribute(Constants.UNPAYED_ORDER);
         boolean gameOver = (Boolean) servletContext.getAttribute(ConfigConstants.GAME_OVER);
 
         if (gameOver) {
             return GameStatus.GAME_OVER;
         }
 
-        boolean gameStarted = false;
-        boolean userLimited = false;
-        boolean hasOrder = false;
-
         Calendar beginTimeCal = DateUtil.stringToCalendar(beginTime);
-        if (beginTimeCal != null && Calendar.getInstance().compareTo(beginTimeCal) >= 0) {
-            gameStarted = true;
-        }
-        if ((totalJoin >= maxUser)) {
-            userLimited = true;
-        }
-        if (unpayedOrder.size() > 0) {
-            hasOrder = true;
-        }
-        if (!gameStarted) {
+        if (beginTimeCal != null && Calendar.getInstance().compareTo(beginTimeCal) < 0) {
             return GameStatus.NOT_START;
-        } else if (!userLimited) {
-            return GameStatus.GAMING;
-        } else if (hasOrder) {
-            return GameStatus.GAMING;
-        } else {
-            return GameStatus.GAME_OVER;
         }
+        return GameStatus.GAMING;
     }
 
 }

@@ -14,9 +14,8 @@ CREATE TABLE t_user(
   wechat_no VARCHAR(100) COMMENT '微信号',
   phone VARCHAR(11) COMMENT '手机号',
   gender VARCHAR(2) COMMENT '性别',
-  payed_fee DOUBLE COMMENT '支付金额',
+  payed_fee int COMMENT '支付金额',
   payed_time DATETIME COMMENT '支付时间',
-  payed_order int COMMENT '支付顺序',
   trade_no VARCHAR(100) COMMENT '内部订单号',
   tran_id VARCHAR(100) COMMENT '微信支付订单号',
   prized int COMMENT '是否中奖'
@@ -28,7 +27,7 @@ CREATE TABLE t_ticket_order(
   user_id BIGINT COMMENT '用户编号',
   openid VARCHAR(200) COMMENT 'openid',
   order_time DATETIME COMMENT '下单时间',
-  payed_fee DOUBLE COMMENT '支付金额',
+  payed_fee int COMMENT '支付金额',
   payed_time DATETIME COMMENT '支付时间',
   payed int COMMENT '是否支付',
   invite_code VARCHAR(100) COMMENT '使用的邀请码'

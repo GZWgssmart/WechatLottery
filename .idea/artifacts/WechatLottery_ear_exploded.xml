@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="exploded-ear" name="WechatLottery:ear exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/WechatLottery_ear_exploded</output-path>
-    <root id="root">
-      <element id="javaee-facet-resources" facet="WechatLottery/javaeeApplication/javaEEApplication" />
-    </root>
-  </artifact>
-</component>

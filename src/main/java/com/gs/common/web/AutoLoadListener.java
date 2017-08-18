@@ -34,11 +34,9 @@ public class AutoLoadListener implements ServletContextListener {
         servletContext.setAttribute(ConfigConstants.ADMIN_PWD, "admin654321");
         servletContext.setAttribute(ConfigConstants.TICKET_PRICE, 300.0);
 
-        servletContext.setAttribute(Constants.TOTAL_JOIN, 0);
         servletContext.setAttribute(Constants.ACTUAL_PAY, 0);
-        servletContext.setAttribute(Constants.USER_MAP, new HashMap<Integer, User>());
-        servletContext.setAttribute(Constants.USER_PAYED_MAP, new HashMap<String, String>());
-        servletContext.setAttribute(Constants.UNPAYED_ORDER, new ArrayList<Integer>());
+        servletContext.setAttribute(Constants.PAYED_USERS, new ArrayList<User>());
+        servletContext.setAttribute(Constants.USER_MONEY, new HashMap<Integer, Integer[]>());
         servletContext.setAttribute(Constants.LOGO_IMG, "images/sing.jpg");
     }
 

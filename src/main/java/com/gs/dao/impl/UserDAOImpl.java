@@ -109,8 +109,7 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
                 user.setGender(resultSet.getString("gender"));
                 user.setPhone(resultSet.getString("phone"));
                 user.setHidePhone(PhoneUtil.hidePhone(user.getPhone()));
-                user.setPayedFee(resultSet.getDouble("payed_fee"));
-                user.setPayedOrder(resultSet.getInt("payed_order"));
+                user.setPayedFee(resultSet.getInt("payed_fee"));
                 user.setPayedTime(resultSet.getDate("payed_time"));
                 users.add(user);
             }
@@ -144,7 +143,6 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
                 User user = users.get(i);
                 ps.setDouble(1, user.getPayedFee());
                 ps.setDate(2, DateUtil.convert(user.getPayedTime()));
-                ps.setInt(3, user.getPayedOrder());
                 ps.setString(4, user.getTradeNo());
                 ps.setString(5, user.getTranId());
                 ps.setInt(6, user.getPrized());

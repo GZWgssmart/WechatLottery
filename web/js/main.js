@@ -1,4 +1,4 @@
-var contextPath = "";
+var contextPath = "/WechatLottery";
 function updatePhone() {
     if (checkPhone()) {
         $.post(contextPath + "/user/update_phone",
@@ -49,19 +49,13 @@ function payTimeout() {
 }
 
 function payFailResult() {
-    $.get(contextPath + "/pay/pay_result?pay_result=fail",
-        function (data) {
-            setTimeout("toHomePage()", 3000);
-        }, "json"
-    );
+    swal("微信支付未响应，支付失败", "", "success");
+    setTimeout("toHomePage()", 3000);
 }
 
 function cancelPayResult() {
-    $.get(contextPath + "/pay/pay_result?pay_result=cancel",
-        function (data) {
-            setTimeout("toHomePage()", 3000);
-        }, "json"
-    );
+    swal("取消支付", "", "success");
+    setTimeout("toHomePage()", 3000);
 }
 
 function checkFile(name, index, type, size) {

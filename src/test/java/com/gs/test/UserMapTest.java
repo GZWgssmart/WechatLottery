@@ -25,8 +25,7 @@ public class UserMapTest {
             u.setGender("男");
             u.setWechatNickname("这是一个很长的微信昵称");
             u.setUnionId("olEzovhdSpcC5OrX-DR2mBGoO0Tc");
-            u.setPayedFee(100.00);
-            u.setPayedOrder(10000);
+            u.setPayedFee(100);
             u.setPayedTime(Calendar.getInstance().getTime());
             u.setPrized(0);
             users.put(new Integer(i + 1), u);

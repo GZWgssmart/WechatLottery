@@ -53,9 +53,6 @@ public class PayServlet extends HttpServlet {
             pay(req, resp);
         } else if (method.equals("result")) {
             result(req, resp);
-        } else if (method.equals("pay_result")) {
-            // 由项目传递回来的支付结果
-            payResult(req, resp);
         } else if (method.equals("all_payed")) {
             allPayed(req, resp);
         } else if (method.equals("lottery")) {
@@ -75,40 +72,18 @@ public class PayServlet extends HttpServlet {
 
     private void confirm(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ServletContext servletContext = req.getServletContext();
-        Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
-        Set<Map.Entry<Integer, User>> entrySet = userMap.entrySet();
-        Iterator<Map.Entry<Integer, User>> entryIterator = entrySet.iterator();
         List<User> users = new ArrayList<User>();
-        int i = 0;
-        while (entryIterator.hasNext()) {
-            Map.Entry<Integer, User> entry = entryIterator.next();
-            users.add(entry.getValue());
-        }
         userService.batchUpdate(users);
-        resp.sendRedirect("/pay/prized_users");
+        resp.sendRedirect(req.getContextPath() + "/pay/prized_users");
     }
 
     private void lottery(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext servletContext = req.getServletContext();
         int prizedCount = (Integer) servletContext.getAttribute(ConfigConstants.PRIZED_COUNT);
-        int actualPay = (Integer) servletContext.getAttribute(Constants.ACTUAL_PAY);
-        Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
         String prizedUsers = (String) servletContext.getAttribute(ConfigConstants.PRIZED_USERS);
+        List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
         List<User> prizedUser = new ArrayList<User>();
-        Set<Integer> keySet = userMap.keySet();
-        Iterator<Integer> keySetIte = keySet.iterator();
-        List<Integer> orders = new ArrayList<Integer>();
-        if (prizedCount > actualPay) {
-            prizedCount = actualPay;
-        }
-        while (keySetIte.hasNext()) {
-            int order = keySetIte.next();
-            User u = userMap.get(order);
-            if (u.getTranId() != null && !u.getTranId().equals("")) {
-                orders.add(order);
-            }
-        }
-        Collections.shuffle(orders);
+        Collections.shuffle(payedUsers);
         String[] prizedUserArray = null;
         if (prizedUsers != null && !prizedUsers.trim().equals("")) {
             prizedUserArray = prizedUsers.split(",");
@@ -122,13 +97,11 @@ public class PayServlet extends HttpServlet {
                 prizedUser.add(u);
             }
         }
-        List<Integer> prized = orders.subList(0, prizedCount);
-        for (int i = 0, size = prized.size(); i < size; i++) {
-            User user = userMap.get(prized.get(i));
-            user.setPrized(1);
-            prizedUser.add(user);
+        if (payedUsers.size() <= prizedCount) {
+            prizedCount = payedUsers.size();
         }
-        servletContext.setAttribute(Constants.USER_MAP, userMap);
+        List<User> prized = payedUsers.subList(0, prizedCount);
+        prizedUser.addAll(prized);
         req.setAttribute("prized_users", prizedUser);
         req.setAttribute("lottery", "y");
         req.getRequestDispatcher("/WEB-INF/views/user/prized_users.jsp").forward(req, resp);
@@ -139,15 +112,19 @@ public class PayServlet extends HttpServlet {
     }
 
     private void pay(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String orderStr = req.getParameter("order");
-        int order = -1;
-        if (orderStr != null) {
-            order = Integer.valueOf(orderStr);
+        String feeStr = req.getParameter("fee");
+        int fee = 0;
+        if (feeStr != null) {
+            fee = Integer.valueOf(feeStr);
         }
+        String count = req.getParameter("count");
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(Constants.LOGINED_USER);
         WechatUtil wechatUtil = new WechatUtil();
-        Map<String, String> prepayResult = wechatUtil.prepayResult(user.getOpenId(), req.getRemoteAddr(), "抽奖付款", order);
+        Map<String, String> prepayResult = wechatUtil.prepayResult(user.getOpenId(), req.getRemoteAddr(), "抽奖付款", count, fee);
+        for (Map.Entry<String, String> entry : prepayResult.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
         // 正式付款需要提交的数据
         Map<String, String> payData = wechatUtil.payData(prepayResult);
         req.setAttribute("appId", WechatAPI.APP_ID);
@@ -166,35 +143,30 @@ public class PayServlet extends HttpServlet {
             String resultCode = resultMap.get("result_code");
             if (resultCode != null && resultCode.equals("SUCCESS")) {
                 String totalFee = resultMap.get("total_fee"); // 支付金额
-                Integer payOrder = Integer.valueOf(totalFee); // 支付顺序
+
+                int payedFee = Integer.valueOf(totalFee);
 
                 ServletContext servletContext = req.getServletContext();
                 // 实际支付数
                 Integer actualPay = (Integer) servletContext.getAttribute(Constants.ACTUAL_PAY);
-                // 支付顺序与用户的对应关系
-                Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
-                // 用户openid与支付状态的对应关系
-                Map<String, String> userPayedMap = (HashMap<String, String>) servletContext.getAttribute(Constants.USER_PAYED_MAP);
-                List<Integer> unpayedOrder = (ArrayList<Integer>) servletContext.getAttribute(Constants.UNPAYED_ORDER);
+                List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
 
                 servletContext.setAttribute(Constants.ACTUAL_PAY, actualPay + 1); // 支付成功，则actual_pay + 1
-                User user = userMap.get(payOrder);
-                user.setPayedTime(Calendar.getInstance().getTime());
-                user.setPayedOrder(payOrder);
-                user.setPayedFee(payOrder);
+
                 String openId = resultMap.get("openid");
+                User user = userService.queryByOpenId(openId);
                 String tranId = resultMap.get("transaction_id");
                 String outTradeNo = resultMap.get("out_trade_no");
+                int count = Integer.valueOf(resultMap.get("attach"));
+                user.setPayedTime(Calendar.getInstance().getTime());
+                user.setPayedFee(payedFee);
                 user.setTradeNo(outTradeNo);
                 user.setTranId(tranId);
                 user.setHidePhone(PhoneUtil.hidePhone(user.getPhone()));
-                servletContext.setAttribute(Constants.USER_MAP, userMap);
-                synchronized (Object.class) {
-                    userPayedMap.put(openId, PayStatus.SUCCESS);
-                    unpayedOrder.remove(payOrder);
+                for (int i = 0; i < count; i++) {
+                    payedUsers.add(user);
                 }
-                servletContext.setAttribute(Constants.USER_PAYED_MAP, userPayedMap);
-                servletContext.setAttribute(Constants.UNPAYED_ORDER, unpayedOrder);
+                servletContext.setAttribute(Constants.PAYED_USERS, payedUsers);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -202,39 +174,5 @@ public class PayServlet extends HttpServlet {
         wechatUtil.responsePayNotify(resp);
     }
 
-    private void payResult(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("pay_result.....");
-        HttpSession session = req.getSession();
-        Object userObj = session.getAttribute(Constants.LOGINED_USER);
-        if (userObj != null) {
-            User user = (User) userObj;
-            ServletContext servletContext = req.getServletContext();
-            Map<Integer, User> userMap = (HashMap<Integer, User>) servletContext.getAttribute(Constants.USER_MAP);
-            List<Integer> unpayedOrder = (ArrayList<Integer>) servletContext.getAttribute(Constants.UNPAYED_ORDER);
-            if (userMap.size() > 0) {
-                String openId = user.getOpenId();
-                double payedFee = user.getPayedFee();
-                int payedOrder = user.getPayedOrder();
-                String payResult = req.getParameter("pay_result");
-                if (payResult != null && payResult.equals("cancel")) {
-                    // 取消支付
-                    synchronized (Object.class) {
-                        userMap.remove(payedOrder);
-                        unpayedOrder.add(payedOrder);
-                    }
-                } else if (payResult != null && payResult.equals("fail")) {
-                    // 支付失败
-                    synchronized (Object.class) {
-                        userMap.remove(payedOrder);
-                        unpayedOrder.add(payedOrder);
-                    }
-                }
-                servletContext.setAttribute(Constants.USER_MAP, userMap);
-                resp.setContentType("text/json;charset=utf-8");
-                PrintWriter out = resp.getWriter();
-                out.println(JSON.toJSONString(ControllerResult.getSuccessResult("跳转到用户首页")));
-            }
-        }
-    }
 
 }
