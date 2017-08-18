@@ -72,7 +72,7 @@ public class PayServlet extends HttpServlet {
 
     private void confirm(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ServletContext servletContext = req.getServletContext();
-        List<User> users = new ArrayList<User>();
+        List<User> users = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
         userService.batchUpdate(users);
         resp.sendRedirect(req.getContextPath() + "/pay/prized_users");
     }
@@ -101,6 +101,10 @@ public class PayServlet extends HttpServlet {
             prizedCount = payedUsers.size();
         }
         List<User> prized = payedUsers.subList(0, prizedCount);
+        for (int i = 0, size = prized.size(); i < size; i++) {
+            User user = payedUsers.get(payedUsers.indexOf(prized.get(i)));
+            user.setPrized(1);
+        }
         prizedUser.addAll(prized);
         req.setAttribute("prized_users", prizedUser);
         req.setAttribute("lottery", "y");

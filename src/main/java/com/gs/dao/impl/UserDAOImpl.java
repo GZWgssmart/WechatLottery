@@ -136,17 +136,17 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
 
     public void batchUpdate(List<User> users) {
         getConnection();
-        String sql = "update t_user set payed_fee = ?, payed_time = ?, payed_order = ?, trade_no = ?, tran_id = ?, prized = ? where openid = ?";
+        String sql = "update t_user set payed_fee = ?, payed_time = ?, trade_no = ?, tran_id = ?, prized = ? where openid = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             for (int i = 0, size = users.size(); i < size; i++) {
                 User user = users.get(i);
                 ps.setDouble(1, user.getPayedFee());
                 ps.setDate(2, DateUtil.convert(user.getPayedTime()));
-                ps.setString(4, user.getTradeNo());
-                ps.setString(5, user.getTranId());
-                ps.setInt(6, user.getPrized());
-                ps.setString(7, user.getOpenId());
+                ps.setString(3, user.getTradeNo());
+                ps.setString(4, user.getTranId());
+                ps.setInt(5, user.getPrized());
+                ps.setString(6, user.getOpenId());
                 ps.addBatch();
             }
             ps.execute();

@@ -104,6 +104,7 @@ public class UserServlet extends HttpServlet {
                 int total = 0;
                 for (int i = 0; i < count; i++) {
                     int cent = payMoney.remove(i);
+                    // int cent = 1;
                     moneyArray[i] = DecimalUtil.centToYuan(cent);
                     total += cent;
                 }
