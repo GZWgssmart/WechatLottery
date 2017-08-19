@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Wang Genshen
@@ -29,6 +30,16 @@
             欢迎您：${sessionScope.user.wechatNickname}
         </h4>
         <p>您已成功参与抽奖活动，共支付${requestScope.total_fee_yuan}元，无需再参与！</p>
+        <p>
+            <c:choose>
+                <c:when test="${requestScope.prized >= 1}">
+                    恭喜您，您中奖了！活动主办方会通过您预留的手机号通知您领取奖品！
+                </c:when>
+                <c:otherwise>
+                    您未中奖！
+                </c:otherwise>
+            </c:choose>
+        </p>
     </div>
 </div>
 </body>

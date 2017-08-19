@@ -13,4 +13,6 @@ public interface UserService extends BaseService<Integer, User> {
     public void updatePhone(String openid, String phone);
 
     public void batchUpdate(List<User> users);
+
+    public int getPrized(String openid);
 }

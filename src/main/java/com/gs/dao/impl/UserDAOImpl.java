@@ -29,6 +29,7 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
             preparedStatement.setString(3, user.getWechatNickname());
             preparedStatement.setString(4, user.getGender());
             preparedStatement.execute();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,6 +75,8 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
                 user.setGender(resultSet.getString("gender"));
                 user.setPhone(resultSet.getString("phone"));
             }
+            resultSet.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,6 +116,8 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
                 user.setPayedTime(resultSet.getDate("payed_time"));
                 users.add(user);
             }
+            resultSet.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -128,6 +133,7 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
             preparedStatement.setString(1, phone);
             preparedStatement.setString(2, openid);
             preparedStatement.execute();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -136,7 +142,7 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
 
     public void batchUpdate(List<User> users) {
         getConnection();
-        String sql = "update t_user set payed_fee = ?, payed_time = ?, trade_no = ?, tran_id = ?, prized = ? where openid = ?";
+        String sql = "update t_user set payed_fee = payed_fee + ?, payed_time = ?, trade_no = ?, tran_id = ?, prized = ? where openid = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             for (int i = 0, size = users.size(); i < size; i++) {
@@ -150,9 +156,30 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
                 ps.addBatch();
             }
             ps.execute();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         close();
+    }
+
+    public int getPrized(String openid) {
+        getConnection();
+        String sql = "select prized from t_user where openid = ?";
+        int prized = 0;
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, openid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                prized = rs.getInt("prized");
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        close();
+        return prized;
     }
 }

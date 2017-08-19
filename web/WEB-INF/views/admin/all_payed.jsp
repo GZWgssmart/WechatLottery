@@ -24,6 +24,9 @@
         <p class="col-lg-offset-3">已支付人数：${applicationScope.actual_pay }</p>
         <p class="col-lg-offset-3">总支付金额：${requestScope.total_money }元</p>
         <a class="col-lg-offset-3 col-lg-6 btn btn-primary" href="<%=path %>/pay/lottery">随机抽出中奖名额！</a>
+        <p>
+        <small>如确认此轮抽奖已经结束，在开启下一轮抽奖前<strong>一定</strong>要抽出此轮的中奖名额并确认！</small>
+        </p>
         <div class="col-lg-12">
         <c:forEach items="${applicationScope.payed_users}" var="user">
             <c:if test="${!empty(user.tranId)}">

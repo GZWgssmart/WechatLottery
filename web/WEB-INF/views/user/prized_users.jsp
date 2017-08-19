@@ -29,7 +29,10 @@
 </div>
 <div class="row none-box">
     <c:if test="${requestScope.lottery == 'y'}">
-        <a href="<%=path %>/pay/confirm" class="col-xs-offset-3 col-xs-6 col-lg-offset-4 col-lg-4 btn btn-primary">确认</a>
+        <a href="<%=path %>/pay/confirm" class="col-xs-offset-3 col-xs-6 col-lg-offset-4 col-lg-4 btn btn-primary">确认中奖名额</a>
+        <p>
+        <small>必须确认中奖名额才能开启下一轮抽奖！</small>
+        </p>
     </c:if>
 </div>
 </body>

@@ -71,4 +71,8 @@ public class UserServiceImpl implements UserService {
     public void batchUpdate(List<User> users) {
         userDAO.batchUpdate(users);
     }
+
+    public int getPrized(String openid) {
+        return userDAO.getPrized(openid);
+    }
 }

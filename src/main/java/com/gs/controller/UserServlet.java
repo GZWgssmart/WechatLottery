@@ -94,7 +94,8 @@ public class UserServlet extends HttpServlet {
             User user = (User) userObj;
             ServletContext servletContext = request.getServletContext();
             List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
-            if (!payedUsers.contains(user)) {
+            int prized = userService.getPrized(user.getOpenId());
+            if (!payedUsers.contains(user) && prized == 0) {
 
                 int count = Integer.valueOf(request.getParameter("count"));
 
@@ -119,6 +120,7 @@ public class UserServlet extends HttpServlet {
             } else {
                 User u = payedUsers.get(payedUsers.indexOf(user));
                 request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(u.getPayedFee()));
+                request.setAttribute("prized", prized);
                 request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
                 return;
             }

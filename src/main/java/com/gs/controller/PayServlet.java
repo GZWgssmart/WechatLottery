@@ -75,6 +75,10 @@ public class PayServlet extends HttpServlet {
         ServletContext servletContext = req.getServletContext();
         List<User> users = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
         userService.batchUpdate(users);
+        users.clear();
+        servletContext.setAttribute(Constants.PAYED_USERS, users);
+        servletContext.setAttribute(Constants.ACTUAL_PAY, 0);
+        servletContext.setAttribute(Constants.TOTAL_MONEY, 0);
         resp.sendRedirect(req.getContextPath() + "/pay/prized_users");
     }
 
@@ -172,9 +176,9 @@ public class PayServlet extends HttpServlet {
                 user.setTradeNo(outTradeNo);
                 user.setTranId(tranId);
                 user.setHidePhone(PhoneUtil.hidePhone(user.getPhone()));
-                for (int i = 0; i < count; i++) {
+                // for (int i = 0; i < count; i++) {
                     payedUsers.add(user);
-                }
+                // }
                 servletContext.setAttribute(Constants.TOTAL_MONEY, payedFee + totalMoney);
                 servletContext.setAttribute(Constants.PAYED_USERS, payedUsers);
             }

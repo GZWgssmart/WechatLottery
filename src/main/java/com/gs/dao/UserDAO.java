@@ -15,4 +15,6 @@ public interface UserDAO extends BaseDAO<Integer, User> {
 
     public void batchUpdate(List<User> users);
 
+    public int getPrized(String openid);
+
 }
