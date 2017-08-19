@@ -30,11 +30,17 @@
         <h4>
             欢迎您：${sessionScope.user.wechatNickname}
         </h4>
-        <p>您共选择了${fn:length(requestScope.money_array )}次中奖次数</p>
-        <p>每一次中奖次数对应的支付金额如下：</p>
+        <p>您的幸运数字和对应的金额如下</p>
+        <table class="table">
+            <tr><td>幸运数字</td><td>金额</td></tr>
         <c:forEach items="${requestScope.money_array }" var="money" varStatus="status">
-            ${status.count} : ${money }元<br />
+            <tr>
+                <td>${requestScope.number_array[status.index ]}</td>
+                <td>${money }元<br /></td>
+            </tr>
+
         </c:forEach>
+        </table>
         <p>一共需要支付：${requestScope.total_fee_yuan }元</p>
     </div>
 </div>

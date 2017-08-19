@@ -22,3 +22,8 @@ div {
     border-color: orange;
     background-image: linear-gradient(orange, orange 60%, orange)
 }
+
+.icheckbox_line-orange, .iradio_line-orange {
+    height: 50px;
+    line-height: 42px;
+}

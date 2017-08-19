@@ -141,27 +141,31 @@ public class UserServlet extends HttpServlet {
         Object userObj = session.getAttribute(Constants.LOGINED_USER);
         if (userObj != null) {
             User user = (User) userObj;
-            int count = Integer.valueOf(request.getParameter("count"));
-            Vector<Integer> payMoney = PayMoney.getPayMoney();
-            if (payMoney.size() < count) {
-                payMoney = PayMoney.regetPayMoney();
+            String[] numbers = request.getParameterValues("number");
+            if (numbers != null) {
+                int count = numbers.length;
+                Vector<Integer> payMoney = PayMoney.getPayMoney();
+                if (payMoney.size() < count) {
+                    payMoney = PayMoney.regetPayMoney();
+                }
+                Collections.shuffle(payMoney);
+                double[] moneyArray = new double[count];
+                int total = 0;
+                for (int i = 0; i < count; i++) {
+                    int cent = payMoney.remove(i);
+                    // int cent = 1;
+                    moneyArray[i] = DecimalUtil.centToYuan(cent);
+                    total += cent;
+                }
+                user.setChooseCount(count);
+                user.setPayedFee(total);
+                session.setAttribute(Constants.LOGINED_USER, user);
+                request.setAttribute("total_fee", total);
+                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(total));
+                request.setAttribute("money_array", moneyArray);
+                request.setAttribute("number_array", numbers);
+                request.getRequestDispatcher("/WEB-INF/views/user/topay.jsp").forward(request, response);
             }
-            Collections.shuffle(payMoney);
-            double[] moneyArray = new double[count];
-            int total = 0;
-            for (int i = 0; i < count; i++) {
-                int cent = payMoney.remove(i);
-                // int cent = 1;
-                moneyArray[i] = DecimalUtil.centToYuan(cent);
-                total += cent;
-            }
-            user.setChooseCount(count);
-            user.setPayedFee(total);
-            session.setAttribute(Constants.LOGINED_USER, user);
-            request.setAttribute("total_fee", total);
-            request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(total));
-            request.setAttribute("money_array", moneyArray);
-            request.getRequestDispatcher("/WEB-INF/views/user/topay.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/index");
         }
