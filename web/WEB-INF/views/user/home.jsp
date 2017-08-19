@@ -50,6 +50,7 @@
                         <a class="btn btn-primary btn-lg col-xs-12" href="<%=path %>/user/home">刷新</a>
                     </c:when>
                 </c:choose>
+                <a class="btn btn-primary col-xs-12" href="<%=path %>/user/payed" style="margin-top: 5px;">查看我的参与情况</a>
             </c:otherwise>
         </c:choose>
 

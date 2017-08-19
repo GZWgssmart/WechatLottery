@@ -29,7 +29,7 @@
         <h4>
             欢迎您：${sessionScope.user.wechatNickname}
         </h4>
-        <p>您已成功参与抽奖活动，共支付${requestScope.total_fee_yuan}元，无需再参与！</p>
+        <p>您共支付${requestScope.total_fee_yuan}元参与抽奖！</p>
         <p>
             <c:choose>
                 <c:when test="${requestScope.prized >= 1}">

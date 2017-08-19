@@ -47,7 +47,21 @@ public class UserServlet extends HttpServlet {
             toPay(request, response);
         } else if (method.equals("choose_count")) {
             showChooseCountPage(request, response);
+        } else if (method.equals("payed")) {
+            showPayed(request, response);
         }
+    }
+
+    private void showPayed(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute(Constants.LOGINED_USER);
+        if (obj != null) {
+            User user = (User) obj;
+            User u = userService.queryByOpenId(user.getOpenId());
+            request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(u.getPayedFee()));
+            request.setAttribute("prized", u.getPrized());
+        }
+        request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
     }
 
     private void showChooseCountPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

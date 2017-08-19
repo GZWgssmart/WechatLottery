@@ -74,6 +74,8 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
                 user.setWechatNickname(resultSet.getString("wechat_nickname"));
                 user.setGender(resultSet.getString("gender"));
                 user.setPhone(resultSet.getString("phone"));
+                user.setPrized(resultSet.getInt("prized"));
+                user.setPayedFee(resultSet.getInt("payed_fee"));
             }
             resultSet.close();
             preparedStatement.close();
