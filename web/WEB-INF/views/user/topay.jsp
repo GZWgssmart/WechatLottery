@@ -50,8 +50,7 @@
 <div class="row none-box">
     <div class="col-xs-12">
         <h4>活动说明</h4>
-        <p>1、活动时间</p>
-        <p>2、活动形式</p>
+        <p>1、选取幸运数字，支付一定的金额，抽取汽车大奖及原始股票！</p>
     </div>
 </div>
 </body>

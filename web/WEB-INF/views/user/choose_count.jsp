@@ -40,7 +40,7 @@
     </div>
 </div>
 <div class="row none-box my_div">
-    <h4>请选择您想要的中奖次数，如选择5，则您可以最多中奖5次，每一次的中奖次数需要支付一小笔随机金额，随机金额在0.01-100元间不等</h4>
+    <h4>请选择您的幸运数字，最多选择6个幸运数字，每一个幸运数字需要支付一小笔随机金额，随机金额在0.01-100元间不等</h4>
     <form id="form" action="<%=path %>/user/topay" method="post" onsubmit="return toPay();">
         <div class="col-xs-4 col-xs-offset-1">
             <input id="number0" type="checkbox" name="number" value="1">
