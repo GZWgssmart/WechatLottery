@@ -59,20 +59,18 @@ public class UserServlet extends HttpServlet {
             User user = (User) obj;
             ServletContext servletContext = request.getServletContext();
             List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
-            int prized = userService.getPrized(user.getOpenId());
-            if (!payedUsers.contains(user) && prized == 0) {
-                request.getRequestDispatcher("/WEB-INF/views/user/choose_count.jsp").forward(request, response);
+            int prized = 0;
+            int index = payedUsers.indexOf(user);
+            User payedUser;
+            if (index >= 0) {
+                payedUser = payedUsers.get(index);
             } else {
-                int index = payedUsers.indexOf(user);
-                User payedUser;
-                if (index >= 0) {
-                    payedUser = payedUsers.get(index);
-                } else {
-                    payedUser = userService.queryByOpenId(user.getOpenId());
-                }
-                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(payedUser.getPayedFee()));
-                request.setAttribute("prized", prized);
+                payedUser = userService.queryByOpenId(user.getOpenId());
             }
+            prized = payedUser.getPrized();
+            request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(payedUser.getPayedFee()));
+            request.setAttribute("prized", prized);
+
         }
         request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
     }
