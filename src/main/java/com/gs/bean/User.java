@@ -171,12 +171,12 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        return id == user.id;
+        return openId != null ? openId.equals(user.openId) : user.openId == null;
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return openId != null ? openId.hashCode() : 0;
     }
 
     @Override

@@ -117,7 +117,8 @@ public class UserServlet extends HttpServlet {
                 request.setAttribute("money_array", moneyArray);
                 request.getRequestDispatcher("/WEB-INF/views/user/topay.jsp").forward(request, response);
             } else {
-                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(user.getPayedFee()));
+                User u = payedUsers.get(payedUsers.indexOf(user));
+                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(u.getPayedFee()));
                 request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
                 return;
             }

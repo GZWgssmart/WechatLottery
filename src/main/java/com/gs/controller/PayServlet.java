@@ -6,6 +6,7 @@ import com.github.wxpay.sdk.WXPayUtil;
 import com.gs.bean.User;
 import com.gs.common.*;
 import com.gs.common.bean.ControllerResult;
+import com.gs.common.util.DecimalUtil;
 import com.gs.common.util.PhoneUtil;
 import com.gs.common.wechat.WechatAPI;
 import com.gs.common.wechat.WechatUtil;
@@ -112,6 +113,9 @@ public class PayServlet extends HttpServlet {
     }
 
     private void allPayed(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext servletContext = req.getServletContext();
+        int totalMoney = (Integer) servletContext.getAttribute(Constants.TOTAL_MONEY);
+        req.setAttribute("total_money", DecimalUtil.centToYuan(totalMoney));
         req.getRequestDispatcher("/WEB-INF/views/admin/all_payed.jsp").forward(req, resp);
     }
 
@@ -154,6 +158,7 @@ public class PayServlet extends HttpServlet {
                 // 实际支付数
                 Integer actualPay = (Integer) servletContext.getAttribute(Constants.ACTUAL_PAY);
                 List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
+                int totalMoney = (Integer) servletContext.getAttribute(Constants.TOTAL_MONEY);
 
                 servletContext.setAttribute(Constants.ACTUAL_PAY, actualPay + 1); // 支付成功，则actual_pay + 1
 
@@ -170,6 +175,7 @@ public class PayServlet extends HttpServlet {
                 for (int i = 0; i < count; i++) {
                     payedUsers.add(user);
                 }
+                servletContext.setAttribute(Constants.TOTAL_MONEY, payedFee + totalMoney);
                 servletContext.setAttribute(Constants.PAYED_USERS, payedUsers);
             }
         } catch (Exception e) {

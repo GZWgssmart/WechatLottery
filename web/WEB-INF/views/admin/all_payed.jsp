@@ -22,6 +22,7 @@
 <body>
     <div class="row none-box">
         <p class="col-lg-offset-3">已支付人数：${applicationScope.actual_pay }</p>
+        <p class="col-lg-offset-3">总支付金额：${requestScope.total_money }元</p>
         <a class="col-lg-offset-3 col-lg-6 btn btn-primary" href="<%=path %>/pay/lottery">随机抽出中奖名额！</a>
         <div class="col-lg-12">
         <c:forEach items="${applicationScope.payed_users}" var="user">

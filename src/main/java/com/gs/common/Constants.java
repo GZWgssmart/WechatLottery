@@ -23,6 +23,6 @@ public final class Constants {
 
     public static final String PAYED_USERS = "payed_users";
 
-    public static final String USER_MONEY = "user_money";
+    public static final String TOTAL_MONEY = "total_money";
 
 }

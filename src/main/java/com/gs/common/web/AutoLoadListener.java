@@ -36,7 +36,7 @@ public class AutoLoadListener implements ServletContextListener {
 
         servletContext.setAttribute(Constants.ACTUAL_PAY, 0);
         servletContext.setAttribute(Constants.PAYED_USERS, new ArrayList<User>());
-        servletContext.setAttribute(Constants.USER_MONEY, new HashMap<Integer, Integer[]>());
+        servletContext.setAttribute(Constants.TOTAL_MONEY, 0);
         servletContext.setAttribute(Constants.LOGO_IMG, "images/sing.jpg");
     }
 
