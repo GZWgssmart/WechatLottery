@@ -149,8 +149,8 @@ public class UserServlet extends HttpServlet {
             double[] moneyArray = new double[count];
             int total = 0;
             for (int i = 0; i < count; i++) {
-                // int cent = payMoney.remove(i);
-                int cent = 1;
+                int cent = payMoney.remove(i);
+                // int cent = 1;
                 moneyArray[i] = DecimalUtil.centToYuan(cent);
                 total += cent;
             }
