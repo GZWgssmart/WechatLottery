@@ -57,15 +57,52 @@ public class UserServlet extends HttpServlet {
         Object obj = session.getAttribute(Constants.LOGINED_USER);
         if (obj != null) {
             User user = (User) obj;
-            User u = userService.queryByOpenId(user.getOpenId());
-            request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(u.getPayedFee()));
-            request.setAttribute("prized", u.getPrized());
+            ServletContext servletContext = request.getServletContext();
+            List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
+            int prized = userService.getPrized(user.getOpenId());
+            if (!payedUsers.contains(user) && prized == 0) {
+                request.getRequestDispatcher("/WEB-INF/views/user/choose_count.jsp").forward(request, response);
+            } else {
+                int index = payedUsers.indexOf(user);
+                User payedUser;
+                if (index >= 0) {
+                    payedUser = payedUsers.get(index);
+                } else {
+                    payedUser = userService.queryByOpenId(user.getOpenId());
+                }
+                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(payedUser.getPayedFee()));
+                request.setAttribute("prized", prized);
+            }
         }
         request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
     }
 
     private void showChooseCountPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/user/choose_count.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Object userObj = session.getAttribute(Constants.LOGINED_USER);
+        if (userObj != null) {
+            User user = (User) userObj;
+            ServletContext servletContext = request.getServletContext();
+            List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
+            int prized = userService.getPrized(user.getOpenId());
+            if (!payedUsers.contains(user) && prized == 0) {
+                request.getRequestDispatcher("/WEB-INF/views/user/choose_count.jsp").forward(request, response);
+            } else {
+                int index = payedUsers.indexOf(user);
+                User payedUser;
+                if (index >= 0) {
+                    payedUser = payedUsers.get(index);
+                } else {
+                    payedUser = userService.queryByOpenId(user.getOpenId());
+                }
+                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(payedUser.getPayedFee()));
+                request.setAttribute("prized", prized);
+                request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
+            }
+        } else {
+            response.sendRedirect(request.getContextPath() + "/index");
+        }
+
     }
 
     private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -106,38 +143,24 @@ public class UserServlet extends HttpServlet {
         Object userObj = session.getAttribute(Constants.LOGINED_USER);
         if (userObj != null) {
             User user = (User) userObj;
-            ServletContext servletContext = request.getServletContext();
-            List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
-            int prized = userService.getPrized(user.getOpenId());
-            if (!payedUsers.contains(user) && prized == 0) {
-
-                int count = Integer.valueOf(request.getParameter("count"));
-
-                Vector<Integer> payMoney = PayMoney.getPayMoney();
-                Collections.shuffle(payMoney);
-                double[] moneyArray = new double[count];
-                int total = 0;
-                for (int i = 0; i < count; i++) {
-                    int cent = payMoney.remove(i);
-                    // int cent = 1;
-                    moneyArray[i] = DecimalUtil.centToYuan(cent);
-                    total += cent;
-                }
-
-                user.setChooseCount(count);
-                user.setPayedFee(total);
-                session.setAttribute(Constants.LOGINED_USER, user);
-                request.setAttribute("total_fee", total);
-                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(total));
-                request.setAttribute("money_array", moneyArray);
-                request.getRequestDispatcher("/WEB-INF/views/user/topay.jsp").forward(request, response);
-            } else {
-                User u = payedUsers.get(payedUsers.indexOf(user));
-                request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(u.getPayedFee()));
-                request.setAttribute("prized", prized);
-                request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
-                return;
+            int count = Integer.valueOf(request.getParameter("count"));
+            Vector<Integer> payMoney = PayMoney.getPayMoney();
+            Collections.shuffle(payMoney);
+            double[] moneyArray = new double[count];
+            int total = 0;
+            for (int i = 0; i < count; i++) {
+                // int cent = payMoney.remove(i);
+                int cent = 1;
+                moneyArray[i] = DecimalUtil.centToYuan(cent);
+                total += cent;
             }
+            user.setChooseCount(count);
+            user.setPayedFee(total);
+            session.setAttribute(Constants.LOGINED_USER, user);
+            request.setAttribute("total_fee", total);
+            request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(total));
+            request.setAttribute("money_array", moneyArray);
+            request.getRequestDispatcher("/WEB-INF/views/user/topay.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/index");
         }
