@@ -19,4 +19,12 @@ public class PayMoney {
         return payMoney;
     }
 
+    public static Vector<Integer> regetPayMoney() {
+        payMoney.clear();
+        for (int i = 1; i <= 100 * 100; i++) {
+            payMoney.add(i);
+        }
+        return payMoney;
+    }
+
 }

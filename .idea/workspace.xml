@@ -7,6 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3fb02676-02bc-4b69-a67d-9645e089de58" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/common/PayMoney.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/common/PayMoney.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/controller/UserServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/controller/UserServlet.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -56,9 +57,22 @@
       <file leaf-file-name="UserServlet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/controller/UserServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="66" column="20" lean-forward="true" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
+            <state relative-caret-position="407">
+              <caret line="146" column="52" lean-forward="false" selection-start-line="146" selection-start-column="52" selection-end-line="146" selection-end-column="52" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PayMoney.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/common/PayMoney.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+              <folding>
+                <element signature="e#349#350#0" expanded="true" />
+                <element signature="e#380#381#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -116,23 +130,6 @@
             <state relative-caret-position="693">
               <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserDAOImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/dao/impl/UserDAOImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
-              <caret line="78" column="13" lean-forward="true" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
-              <folding>
-                <marker date="1503108252425" expanded="true" signature="578:662" ph="insert into t_user... " />
-                <marker date="1503108252425" expanded="true" signature="1658:1695" ph="select * fro... t_user" />
-                <marker date="1503108252425" expanded="true" signature="3068:3105" ph="select * fro... t_user" />
-                <marker date="1503108252425" expanded="true" signature="4425:4469" ph="update t_use... " />
-                <marker date="1503108252425" expanded="true" signature="4950:5065" ph="update t_use... " />
-                <marker date="1503108252425" expanded="true" signature="5870:5912" ph="select prize... t_user" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -219,7 +216,6 @@
         <option value="$PROJECT_DIR$/src/test/java/com/gs/test/URLTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/common/util/EncryptUtil.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/phone.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/gs/common/PayMoney.java" />
         <option value="$PROJECT_DIR$/documents/wechat_lottery.sql" />
         <option value="$PROJECT_DIR$/src/test/java/com/gs/test/UserMapTest.java" />
         <option value="$PROJECT_DIR$/web/css/main.css" />
@@ -251,6 +247,7 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/payed.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/dao/impl/UserDAOImpl.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/home.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/gs/common/PayMoney.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/controller/UserServlet.java" />
       </list>
     </option>
@@ -1596,7 +1593,7 @@
       <workItem from="1501286812348" duration="23911000" />
       <workItem from="1502938882468" duration="15972000" />
       <workItem from="1502968904215" duration="18686000" />
-      <workItem from="1503101557853" duration="11071000" />
+      <workItem from="1503101557853" duration="11523000" />
     </task>
     <servers />
   </component>
@@ -1618,7 +1615,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="266077000" />
+    <option name="totallyTimeSpent" value="266529000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1647,7 +1644,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39952904" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22885959" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22885959" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1772,13 +1769,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/common/PayMoney.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="18" column="16" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -2128,10 +2118,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/common/PayMoney.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+          <folding>
+            <element signature="e#349#350#0" expanded="true" />
+            <element signature="e#380#381#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/controller/UserServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="66" column="20" lean-forward="true" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
+        <state relative-caret-position="407">
+          <caret line="146" column="52" lean-forward="false" selection-start-line="146" selection-start-column="52" selection-end-line="146" selection-end-column="52" />
           <folding />
         </state>
       </provider>

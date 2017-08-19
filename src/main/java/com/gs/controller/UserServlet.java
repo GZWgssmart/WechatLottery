@@ -143,6 +143,9 @@ public class UserServlet extends HttpServlet {
             User user = (User) userObj;
             int count = Integer.valueOf(request.getParameter("count"));
             Vector<Integer> payMoney = PayMoney.getPayMoney();
+            if (payMoney.size() < count) {
+                payMoney = PayMoney.regetPayMoney();
+            }
             Collections.shuffle(payMoney);
             double[] moneyArray = new double[count];
             int total = 0;
