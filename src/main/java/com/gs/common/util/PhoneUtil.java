@@ -5,6 +5,9 @@ package com.gs.common.util;
  */
 public class PhoneUtil {
     public static String hidePhone(String phone) {
+        if (phone == null || phone.length() < 11) {
+            return "";
+        }
         return phone.substring(0,3) + "****" + phone.substring(7);
     }
 }

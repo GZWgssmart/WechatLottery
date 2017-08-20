@@ -7,13 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3fb02676-02bc-4b69-a67d-9645e089de58" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/common/wechat/WechatAPI.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/common/wechat/WechatAPI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/controller/PayServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/controller/PayServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/common/util/PhoneUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/common/util/PhoneUtil.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -77,23 +71,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/home.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1782">
-              <caret line="54" column="19" lean-forward="true" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="all_payed_stock.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="416">
-              <caret line="47" column="45" lean-forward="false" selection-start-line="47" selection-start-column="45" selection-end-line="47" selection-end-column="45" />
+              <caret line="47" column="43" lean-forward="false" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="43" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1503226943334" expanded="true" signature="1774:1801" ph="{...}" />
+                <marker date="1503226943334" expanded="true" signature="1774:1810" ph="..." />
               </folding>
             </state>
           </provider>
@@ -103,7 +88,7 @@
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="273">
-              <caret line="31" column="30" lean-forward="false" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+              <caret line="31" column="28" lean-forward="false" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -113,7 +98,7 @@
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="273">
-              <caret line="31" column="30" lean-forward="false" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+              <caret line="31" column="28" lean-forward="false" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -123,9 +108,10 @@
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="444">
-              <caret line="50" column="45" lean-forward="false" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
+              <caret line="50" column="43" lean-forward="false" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1503226943428" expanded="true" signature="1940:1961" ph="{...}" />
+                <marker date="1503226943428" expanded="true" signature="1940:1970" ph="..." />
               </folding>
             </state>
           </provider>
@@ -136,7 +122,22 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="132">
               <caret line="40" column="51" lean-forward="false" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
-              <folding />
+              <folding>
+                <marker date="1503226943543" expanded="true" signature="1882:2711" ph="{...}" />
+                <marker date="1503226943543" expanded="true" signature="2830:4061" ph="{...}" />
+                <marker date="1503226943543" expanded="false" signature="3339:3345" ph="&lt;~&gt;" />
+                <marker date="1503226943543" expanded="true" signature="4184:4401" ph="{...}" />
+                <marker date="1503226943543" expanded="true" signature="4502:4909" ph="{...}" />
+                <marker date="1503226943543" expanded="true" signature="4915:5045" ph="/**...*/" />
+                <marker date="1503226943543" expanded="true" signature="5164:5377" ph="{...}" />
+                <marker date="1503226943543" expanded="true" signature="5495:5701" ph="{...}" />
+                <marker date="1503226943543" expanded="true" signature="5797:6292" ph="{...}" />
+                <marker date="1503226943543" expanded="true" signature="6406:8076" ph="{...}" />
+                <marker date="1503226943543" expanded="false" signature="6812:6818" ph="&lt;~&gt;" />
+                <marker date="1503226943543" expanded="true" signature="8191:8518" ph="{...}" />
+                <marker date="1503226943543" expanded="true" signature="8628:9798" ph="{...}" />
+                <marker date="1503226943543" expanded="true" signature="9911:11922" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,21 +152,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="topay.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="topay.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
+            <state relative-caret-position="775">
               <caret line="53" column="10" lean-forward="true" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginServlet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/controller/LoginServlet.java">
+      <file leaf-file-name="PathUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/common/util/PathUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="924">
-              <caret line="55" column="31" lean-forward="false" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+            <state relative-caret-position="165">
+              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PhoneUtil.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/common/util/PhoneUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="7" column="48" lean-forward="false" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -219,7 +230,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/gs/common/util/PhoneUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/common/util/DateUtil.java" />
         <option value="$PROJECT_DIR$/web/index.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/test.jsp" />
@@ -270,6 +280,7 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/gs/common/util/PhoneUtil.java" />
       </list>
     </option>
   </component>
@@ -1646,7 +1657,7 @@
       <workItem from="1501286812348" duration="23911000" />
       <workItem from="1502938882468" duration="15972000" />
       <workItem from="1502968904215" duration="18686000" />
-      <workItem from="1503101557853" duration="34657000" />
+      <workItem from="1503101557853" duration="35487000" />
     </task>
     <servers />
   </component>
@@ -1668,7 +1679,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="289663000" />
+    <option name="totallyTimeSpent" value="290493000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1772,22 +1783,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="24" column="62" lean-forward="false" selection-start-line="24" selection-start-column="62" selection-end-line="24" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/common/WebUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="825">
@@ -2163,16 +2158,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="40" column="51" lean-forward="false" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
-          <folding />
+          <folding>
+            <marker date="1503226943543" expanded="true" signature="1882:2711" ph="{...}" />
+            <marker date="1503226943543" expanded="true" signature="2830:4061" ph="{...}" />
+            <marker date="1503226943543" expanded="false" signature="3339:3345" ph="&lt;~&gt;" />
+            <marker date="1503226943543" expanded="true" signature="4184:4401" ph="{...}" />
+            <marker date="1503226943543" expanded="true" signature="4502:4909" ph="{...}" />
+            <marker date="1503226943543" expanded="true" signature="4915:5045" ph="/**...*/" />
+            <marker date="1503226943543" expanded="true" signature="5164:5377" ph="{...}" />
+            <marker date="1503226943543" expanded="true" signature="5495:5701" ph="{...}" />
+            <marker date="1503226943543" expanded="true" signature="5797:6292" ph="{...}" />
+            <marker date="1503226943543" expanded="true" signature="6406:8076" ph="{...}" />
+            <marker date="1503226943543" expanded="false" signature="6812:6818" ph="&lt;~&gt;" />
+            <marker date="1503226943543" expanded="true" signature="8191:8518" ph="{...}" />
+            <marker date="1503226943543" expanded="true" signature="8628:9798" ph="{...}" />
+            <marker date="1503226943543" expanded="true" signature="9911:11922" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="444">
-          <caret line="50" column="45" lean-forward="false" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
+          <caret line="50" column="43" lean-forward="false" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1503226943428" expanded="true" signature="1940:1961" ph="{...}" />
+            <marker date="1503226943428" expanded="true" signature="1940:1970" ph="..." />
           </folding>
         </state>
       </provider>
@@ -2180,9 +2191,10 @@
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
-          <caret line="47" column="45" lean-forward="false" selection-start-line="47" selection-start-column="45" selection-end-line="47" selection-end-column="45" />
+          <caret line="47" column="43" lean-forward="false" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="43" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1503226943334" expanded="true" signature="1774:1801" ph="{...}" />
+            <marker date="1503226943334" expanded="true" signature="1774:1810" ph="..." />
           </folding>
         </state>
       </provider>
@@ -2190,7 +2202,7 @@
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
-          <caret line="31" column="30" lean-forward="false" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+          <caret line="31" column="28" lean-forward="false" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -2198,15 +2210,31 @@
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
-          <caret line="31" column="30" lean-forward="false" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+          <caret line="31" column="28" lean-forward="false" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
+        <state relative-caret-position="775">
           <caret line="53" column="10" lean-forward="true" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/common/util/PathUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/common/util/PhoneUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="7" column="48" lean-forward="false" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
           <folding />
         </state>
       </provider>
