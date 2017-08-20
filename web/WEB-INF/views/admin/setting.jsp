@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="row none-box">
-        <form action="<%=path %>/setting/change">
+        <form action="<%=path %>/setting/change" method="post">
             <div class="form-group">
                 <label for="startTime">活动开始时间</label>
                 <input type="datetime" class="form-control" id="startTime" name="startTime" value="${applicationScope.activity_begin_time}"/>
@@ -30,6 +30,8 @@
                 <input type="number" class="form-control" id="prizedCount" name="prizedCount" value="${applicationScope.prized_count}"/>
                 <label for="prizedUsers">配置内部中奖用户（格式为微信昵称:手机号,微信昵称:手机号）</label>
                 <input type="text" class="form-control" id="prizedUsers" name="prizedUsers" value="${applicationScope.prized_users}"/>
+                <label for="prizedCount">原始股中奖人数</label>
+                <input type="number" class="form-control" id="prizedCountStock" name="prizedCountStock" value="${applicationScope.prized_count_stock}"/>
                 <input class="btn btn-primary" type="submit" value="修改活动配置" />
             </div>
         </form>

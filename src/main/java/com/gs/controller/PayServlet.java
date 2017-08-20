@@ -6,6 +6,7 @@ import com.github.wxpay.sdk.WXPayUtil;
 import com.gs.bean.User;
 import com.gs.common.*;
 import com.gs.common.bean.ControllerResult;
+import com.gs.common.util.Config;
 import com.gs.common.util.DecimalUtil;
 import com.gs.common.util.PhoneUtil;
 import com.gs.common.wechat.WechatAPI;
@@ -56,13 +57,69 @@ public class PayServlet extends HttpServlet {
             result(req, resp);
         } else if (method.equals("all_payed")) {
             allPayed(req, resp);
+        } else if (method.equals("all_payed_stock")) {
+            allPayedStock(req, resp);
         } else if (method.equals("lottery")) {
             lottery(req, resp);
+        } else if (method.equals("lottery_stock")) {
+            lotteryStock(req, resp);
         } else if (method.equals("confirm")) {
             confirm(req, resp);
+        } else if (method.equals("confirm_stock")) {
+            confirmStock(req, resp);
         } else if (method.equals("prized_users")) {
             prizedUsers(req, resp);
+        } else if (method.equals("prized_users_stock")) {
+            prizedUsersStock(req, resp);
         }
+    }
+
+    private void lotteryStock(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext servletContext = req.getServletContext();
+        int prizedCount = (Integer) servletContext.getAttribute(ConfigConstants.PRIZED_COUNT_STOCK);
+        List<User> payedUsers = userService.queryAllPayed();
+        List<User> prizedUser = new ArrayList<User>();
+        Collections.shuffle(payedUsers);
+        if (payedUsers.size() <= prizedCount) {
+            prizedCount = payedUsers.size();
+        }
+        List<User> prized = payedUsers.subList(0, prizedCount);
+        for (int i = 0, size = prized.size(); i < size; i++) {
+            User user = payedUsers.get(payedUsers.indexOf(prized.get(i)));
+            user.setPrizedStock(1);
+        }
+        prizedUser.addAll(prized);
+        req.setAttribute("prized_users", prizedUser);
+        servletContext.setAttribute(ConfigConstants.PRIZED_USERS_STOCK, prizedUser);
+        req.setAttribute("lottery", "y");
+        req.getRequestDispatcher("/WEB-INF/views/user/prized_users_stock.jsp").forward(req, resp);
+    }
+
+    private void prizedUsersStock(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<User> users = userService.queryAllPrizedStock();
+        req.setAttribute("prized_users", users);
+        req.getRequestDispatcher("/WEB-INF/views/user/prized_users_stock.jsp").forward(req, resp);
+    }
+
+    private void confirmStock(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ServletContext servletContext = req.getServletContext();
+        List<User> users = (ArrayList<User>) servletContext.getAttribute(ConfigConstants.PRIZED_USERS_STOCK);
+        userService.batchUpdateStock(users);
+        users.clear();
+        servletContext.setAttribute(ConfigConstants.PRIZED_USERS_STOCK, users);
+        resp.sendRedirect(req.getContextPath() + "/pay/prized_users_stock");
+    }
+
+    private void allPayedStock(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<User> payedUsers = userService.queryAllPayed();
+        req.setAttribute("payed_users", payedUsers);
+        int total = 0;
+        for (User user : payedUsers) {
+            total += user.getPayedFee();
+        }
+        req.setAttribute("actual_pay", payedUsers.size());
+        req.setAttribute("total_money", DecimalUtil.centToYuan(total));
+        req.getRequestDispatcher("/WEB-INF/views/admin/all_payed_stock.jsp").forward(req, resp);
     }
 
     private void prizedUsers(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -61,11 +61,17 @@ public class AdminServlet extends HttpServlet {
         if (prizedCountStr != null && !prizedCountStr.trim().equals("")) {
             prizedCount = Integer.valueOf(prizedCountStr);
         }
+        String prizedCountStockStr = req.getParameter("prizedCountStock");
+        int prizedCountStock = 5;
+        if (prizedCountStockStr != null && !prizedCountStockStr.trim().equals("")) {
+            prizedCountStock = Integer.valueOf(prizedCountStockStr);
+        }
         String prizedUsers = req.getParameter("prizedUsers");
         ServletContext servletContext = req.getServletContext();
         servletContext.setAttribute(ConfigConstants.ACTIVITY_BEGIN_TIME, date);
         servletContext.setAttribute(ConfigConstants.ACTIVITY_MAX_USER, totalUser);
         servletContext.setAttribute(ConfigConstants.PRIZED_COUNT, prizedCount);
+        servletContext.setAttribute(ConfigConstants.PRIZED_COUNT_STOCK, prizedCountStock);
         servletContext.setAttribute(ConfigConstants.PRIZED_USERS, prizedUsers);
         resp.sendRedirect(req.getContextPath() + "/setting/setting");
     }

@@ -30,10 +30,23 @@
             欢迎您：${sessionScope.user.wechatNickname}
         </h4>
         <p>您共支付${requestScope.total_fee_yuan}元参与抽奖！</p>
+        <h5>汽车大奖</h5>
         <p>
             <c:choose>
                 <c:when test="${requestScope.prized >= 1}">
-                    恭喜您，您中奖了！活动主办方会通过您预留的手机号通知您领取奖品！
+                    恭喜您，您中了汽车大奖！活动主办方会通过您预留的手机号通知您领取奖品！
+                </c:when>
+                <c:otherwise>
+                    您未中奖！
+                </c:otherwise>
+            </c:choose>
+        </p>
+        <br />
+        <h5>原始股大奖</h5>
+        <p>
+            <c:choose>
+                <c:when test="${requestScope.prized_stock >= 1}">
+                    恭喜您，您中原始股奖了！活动主办方会通过您预留的手机号通知您领取奖品！
                 </c:when>
                 <c:otherwise>
                     您未中奖！

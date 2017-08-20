@@ -26,6 +26,7 @@ public class User implements Serializable {
     private String tradeNo;
     private String tranId;
     private int prized;
+    private int prizedStock;
     private int chooseCount;
 
     public int getId() {
@@ -154,6 +155,14 @@ public class User implements Serializable {
 
     public void setPrized(int prized) {
         this.prized = prized;
+    }
+
+    public int getPrizedStock() {
+        return prizedStock;
+    }
+
+    public void setPrizedStock(int prizedStock) {
+        this.prizedStock = prizedStock;
     }
 
     public int getChooseCount() {

@@ -18,7 +18,8 @@ CREATE TABLE t_user(
   payed_time DATETIME COMMENT '支付时间',
   trade_no VARCHAR(100) COMMENT '内部订单号',
   tran_id VARCHAR(100) COMMENT '微信支付订单号',
-  prized int COMMENT '是否中奖'
+  prized int COMMENT '是否中奖',
+  prized_stock int COMMENT '是否中原始股奖'
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 DROP TABLE IF EXISTS t_ticket_order;

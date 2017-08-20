@@ -10,9 +10,19 @@ import java.util.List;
 public interface UserService extends BaseService<Integer, User> {
     public List<User> queryAllPrized();
 
+    public List<User> queryAllPrizedStock();
+
     public void updatePhone(String openid, String phone);
 
     public void batchUpdate(List<User> users);
 
+    public void batchUpdateStock(List<User> users);
+
     public int getPrized(String openid);
+
+    public int getPrizedStock(String openid);
+
+    public List<User> queryAllPayed();
+
+    public boolean isPayed(String openid);
 }

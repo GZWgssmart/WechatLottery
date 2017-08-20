@@ -60,16 +60,20 @@ public class UserServlet extends HttpServlet {
             ServletContext servletContext = request.getServletContext();
             List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
             int prized = 0;
+            int prizedStock = 0;
             int index = payedUsers.indexOf(user);
             User payedUser;
             if (index >= 0) {
                 payedUser = payedUsers.get(index);
+                prized = payedUser.getPrized();
             } else {
                 payedUser = userService.queryByOpenId(user.getOpenId());
+                prized = payedUser.getPrized();
+                prizedStock = payedUser.getPrizedStock();
             }
-            prized = payedUser.getPrized();
             request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(payedUser.getPayedFee()));
             request.setAttribute("prized", prized);
+            request.setAttribute("prized_stock", prizedStock);
 
         }
         request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
@@ -82,8 +86,8 @@ public class UserServlet extends HttpServlet {
             User user = (User) userObj;
             ServletContext servletContext = request.getServletContext();
             List<User> payedUsers = (ArrayList<User>) servletContext.getAttribute(Constants.PAYED_USERS);
-            int prized = userService.getPrized(user.getOpenId());
-            if (!payedUsers.contains(user) && prized == 0) {
+            boolean isPayed = userService.isPayed(user.getOpenId());
+            if (!payedUsers.contains(user) && !isPayed) {
                 request.getRequestDispatcher("/WEB-INF/views/user/choose_count.jsp").forward(request, response);
             } else {
                 int index = payedUsers.indexOf(user);
@@ -94,7 +98,8 @@ public class UserServlet extends HttpServlet {
                     payedUser = userService.queryByOpenId(user.getOpenId());
                 }
                 request.setAttribute("total_fee_yuan", DecimalUtil.centToYuan(payedUser.getPayedFee()));
-                request.setAttribute("prized", prized);
+                request.setAttribute("prized", payedUser.getPrized());
+                request.setAttribute("prized_stock", payedUser.getPrizedStock());
                 request.getRequestDispatcher("/WEB-INF/views/user/payed.jsp").forward(request, response);
             }
         } else {

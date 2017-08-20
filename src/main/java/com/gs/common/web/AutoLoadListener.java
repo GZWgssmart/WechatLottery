@@ -29,7 +29,9 @@ public class AutoLoadListener implements ServletContextListener {
         servletContext.setAttribute(ConfigConstants.ACTIVITY_BEGIN_TIME, DateUtil.dateToString(Calendar.getInstance().getTime()));
         servletContext.setAttribute(ConfigConstants.ACTIVITY_MAX_USER, 10000);
         servletContext.setAttribute(ConfigConstants.PRIZED_COUNT, 10);
+        servletContext.setAttribute(ConfigConstants.PRIZED_COUNT_STOCK, 5);
         servletContext.setAttribute(ConfigConstants.PRIZED_USERS, "");
+        servletContext.setAttribute(ConfigConstants.PRIZED_USERS_STOCK, new ArrayList<User>());
         servletContext.setAttribute(ConfigConstants.GAME_OVER, false);
         servletContext.setAttribute(ConfigConstants.ADMIN_PWD, "admin654321");
         servletContext.setAttribute(ConfigConstants.TICKET_PRICE, 300.0);

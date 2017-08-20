@@ -64,6 +64,11 @@ public class UserServiceImpl implements UserService {
         return userDAO.queryAllPrized();
     }
 
+    @Override
+    public List<User> queryAllPrizedStock() {
+        return userDAO.queryAllPrizedStock();
+    }
+
     public void updatePhone(String openid, String phone) {
         userDAO.updatePhone(openid, phone);
     }
@@ -72,7 +77,23 @@ public class UserServiceImpl implements UserService {
         userDAO.batchUpdate(users);
     }
 
+    public void batchUpdateStock(List<User> users) {
+        userDAO.batchUpdateStock(users);
+    }
+
     public int getPrized(String openid) {
         return userDAO.getPrized(openid);
+    }
+
+    public int getPrizedStock(String openid) {
+        return userDAO.getPrizedStock(openid);
+    }
+
+    public List<User> queryAllPayed() {
+        return userDAO.queryAllPayed();
+    }
+
+    public boolean isPayed(String openid) {
+        return userDAO.isPayed(openid);
     }
 }
