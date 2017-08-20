@@ -8,7 +8,7 @@ import com.gs.common.WebUtil;
 public class WechatAPI {
 
     public static final String APP_ID = "wxbb5d044b94663978";
-    public static final String APP_KEY = "3ff1ac39065badafaf40f199f34d11b3";
+    public static final String APP_KEY = "f122d6c1b0dd2cf5baabf2fb1ed80e01";
     public static final String MCH_ID = "1483257182";
     public static final String API_KEY = "uktftujnabx9vba6glx5qq28dcodej36";
     public static final String MD5 = "MD5";
