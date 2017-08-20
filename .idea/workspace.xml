@@ -7,23 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3fb02676-02bc-4b69-a67d-9645e089de58" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/5faf3e93-5181-43a2-b181-ba8732b9800c.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/5faf3e93-5181-43a2-b181-ba8732b9800c.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documents/wechat_lottery.sql" afterPath="$PROJECT_DIR$/documents/wechat_lottery.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/bean/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/bean/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/common/ConfigConstants.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/common/ConfigConstants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/common/web/AutoLoadListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/common/web/AutoLoadListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/controller/AdminServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/controller/AdminServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/controller/PayServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/controller/PayServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/controller/UserServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/controller/UserServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/dao/UserDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/dao/UserDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/dao/impl/UserDAOImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/dao/impl/UserDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/service/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/service/UserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/service/impl/UserServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/admin/setting.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/admin/setting.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/user/payed.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/payed.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/user/choose_count.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/choose_count.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/user/home.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/home.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -80,9 +71,77 @@
       <file leaf-file-name="all_payed_stock.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="30" column="52" lean-forward="false" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
+            <state relative-caret-position="462">
+              <caret line="32" column="72" lean-forward="false" selection-start-line="32" selection-start-column="72" selection-end-line="32" selection-end-column="72" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="all_payed.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="32" column="76" lean-forward="false" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="76" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="choose_count.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/choose_count.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1056">
+              <caret line="42" column="36" lean-forward="false" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="topay.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="917">
+              <caret line="53" column="10" lean-forward="true" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="prized_users.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="24" column="68" lean-forward="false" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="prized_users_stock.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="24" column="68" lean-forward="false" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/home.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="693">
+              <caret line="54" column="19" lean-forward="true" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
+              <folding>
+                <element signature="n#style#0;n#a#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -97,59 +156,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/home.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="52" column="106" lean-forward="false" selection-start-line="52" selection-start-column="82" selection-end-line="52" selection-end-column="106" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="prized_users_stock.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="31" column="128" lean-forward="false" selection-start-line="31" selection-start-column="128" selection-end-line="31" selection-end-column="128" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="payed.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/payed.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1069">
-              <caret line="48" column="29" lean-forward="false" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserServlet.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserServlet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/controller/UserServlet.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
               <caret line="159" column="20" lean-forward="false" selection-start-line="159" selection-start-column="20" selection-end-line="159" selection-end-column="20" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/service/impl/UserServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="836">
-              <caret line="92" column="36" lean-forward="false" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="36" />
-              <folding>
-                <element signature="e#876#877#0" expanded="true" />
-                <element signature="e#928#929#0" expanded="true" />
-                <element signature="e#1664#1665#0" expanded="true" />
-                <element signature="e#1712#1713#0" expanded="true" />
-                <element signature="e#1854#1855#0" expanded="true" />
-                <element signature="e#1900#1901#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -174,16 +186,6 @@
                 <marker date="1503139563265" expanded="true" signature="10570:10614" ph="select prize... t_user" />
                 <marker date="1503139563265" expanded="true" signature="10570:10638" ph="select count... t_user" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="choose_count.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/choose_count.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2244">
-              <caret line="42" column="36" lean-forward="false" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -261,8 +263,6 @@
         <option value="$PROJECT_DIR$/documents/wxpay.txt" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/common/wechat/WechatAPI.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/common/Constants.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/home.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/common/PayMoney.java" />
         <option value="$PROJECT_DIR$/web/choose_count.jsp" />
@@ -271,7 +271,6 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/choose_count.jsp" />
         <option value="$PROJECT_DIR$/documents/wechat_lottery.sql" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/bean/User.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/common/ConfigConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/common/web/AutoLoadListener.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/admin/setting.jsp" />
@@ -280,10 +279,13 @@
         <option value="$PROJECT_DIR$/src/main/java/com/gs/service/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/controller/PayServlet.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/dao/impl/UserDAOImpl.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/user/payed.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/controller/UserServlet.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp" />
       </list>
     </option>
   </component>
@@ -1660,7 +1662,7 @@
       <workItem from="1501286812348" duration="23911000" />
       <workItem from="1502938882468" duration="15972000" />
       <workItem from="1502968904215" duration="18686000" />
-      <workItem from="1503101557853" duration="29454000" />
+      <workItem from="1503101557853" duration="30026000" />
     </task>
     <servers />
   </component>
@@ -1682,7 +1684,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="284460000" />
+    <option name="totallyTimeSpent" value="285032000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1720,7 +1722,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16679597" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25040454" sideWeight="0.4918033" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25040454" sideWeight="0.4918033" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25894308" sideWeight="0.5081967" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971296" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JavaEE:App" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -1949,14 +1951,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/common/PayMoney.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -2020,22 +2014,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="891">
           <caret line="27" column="19" lean-forward="false" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
-          <caret line="52" column="40" lean-forward="false" selection-start-line="52" selection-start-column="40" selection-end-line="52" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="25" column="103" lean-forward="false" selection-start-line="25" selection-start-column="103" selection-end-line="25" selection-end-column="103" />
           <folding />
         </state>
       </provider>
@@ -2113,14 +2091,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/home.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="52" column="106" lean-forward="false" selection-start-line="52" selection-start-column="82" selection-end-line="52" selection-end-column="106" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/service/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="792">
@@ -2133,14 +2103,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="825">
           <caret line="27" column="4" lean-forward="false" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/choose_count.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2244">
-          <caret line="42" column="36" lean-forward="false" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -2164,22 +2126,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
           <caret line="113" column="57" lean-forward="false" selection-start-line="113" selection-start-column="44" selection-end-line="113" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="30" column="52" lean-forward="false" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="31" column="128" lean-forward="false" selection-start-line="31" selection-start-column="128" selection-end-line="31" selection-end-column="128" />
           <folding />
         </state>
       </provider>
@@ -2219,6 +2165,70 @@
         <state relative-caret-position="495">
           <caret line="159" column="20" lean-forward="false" selection-start-line="159" selection-start-column="20" selection-end-line="159" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed_stock.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="32" column="72" lean-forward="false" selection-start-line="32" selection-start-column="72" selection-end-line="32" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/home.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="54" column="19" lean-forward="true" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
+          <folding>
+            <element signature="n#style#0;n#a#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/choose_count.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1056">
+          <caret line="42" column="36" lean-forward="false" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/topay.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="917">
+          <caret line="53" column="10" lean-forward="true" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/admin/all_payed.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="32" column="76" lean-forward="false" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="76" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="24" column="68" lean-forward="false" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/user/prized_users_stock.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="24" column="68" lean-forward="false" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

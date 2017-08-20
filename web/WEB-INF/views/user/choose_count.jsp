@@ -82,7 +82,7 @@
             <input id="number9" type="checkbox" name="number" value="1">
             <label id="label9">1</label>
         </div>
-        <button class="btn btn-primary col-xs-12">确认幸运数字!</button>
+        <button class="btn btn-primary btn-lg col-xs-12">确认幸运数字!</button>
     </form>
 
 </div>

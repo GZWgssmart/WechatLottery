@@ -45,7 +45,7 @@
     </div>
 </div>
 <div class="row none-box">
-    <a class="btn btn-primary col-xs-12" href="<%=path %>/pay/pay?fee=${requestScope.total_fee}&count=${fn:length(requestScope.money_array )}">确认付款</a>
+    <a class="btn btn-primary btn-lg col-xs-12" href="<%=path %>/pay/pay?fee=${requestScope.total_fee}&count=${fn:length(requestScope.money_array )}">确认付款</a>
 </div>
 <div class="row none-box">
     <div class="col-xs-12">

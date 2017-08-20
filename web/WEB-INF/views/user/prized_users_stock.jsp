@@ -22,7 +22,7 @@
 <div class="row none-box">
     <p class="col-lg-12 text-center text-primary">恭喜所有中原始股票奖用户！</p>
     <c:forEach items="${requestScope.prized_users}" var="user">
-        <div class="col-lg-4">
+        <div class="col-lg-4" style="margin-top: 10px; height:30px;">
             ${user.wechatNickname}&nbsp;${user.hidePhone}
         </div>
     </c:forEach>

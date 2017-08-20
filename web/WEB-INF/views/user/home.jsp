@@ -50,7 +50,7 @@
                         <a class="btn btn-primary btn-lg col-xs-12" href="<%=path %>/user/home">刷新</a>
                     </c:when>
                 </c:choose>
-                <a class="btn btn-primary col-xs-12" href="<%=path %>/user/payed" style="margin-top: 5px;">查看我的参与情况</a>
+                <a class="btn btn-primary btn-lg col-xs-12" href="<%=path %>/user/payed" style="margin-top: 5px;">查看我的参与情况</a>
             </c:otherwise>
         </c:choose>
 
@@ -58,8 +58,9 @@
     <div class="row none-box">
         <div class="col-xs-12">
             <h4>活动说明</h4>
-            <p>1、活动时间</p>
-            <p>2、活动形式</p>
+            <p>1、活动时间<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017-8-20 19:19 至 2017-8-20 22:00</p>
+            <p>2、活动形式<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在下方的数字中选择您喜欢的辛运数字点击打勾（每次最多选择6个数字即6个抽奖资格），确认好数字打勾后点击“确认参与抽奖”会出现您所需要支付的金额，完成支付即成功购买到抽奖资格。您所支付的金额从0.01元至100元随机对应。每次大奖开放10000个参与资格，每次中出10台价值17.98万的三加壹共享电动汽车五年单独使用权或分红权。
+	    </p>
         </div>
     </div>
 </body>

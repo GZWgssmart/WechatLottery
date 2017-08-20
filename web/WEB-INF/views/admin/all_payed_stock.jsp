@@ -30,7 +30,7 @@
         <div class="col-lg-12">
         <c:forEach items="${requestScope.payed_users}" var="user">
             <c:if test="${!empty(user.tranId)}">
-                <div class="col-lg-2" style="margin-top: 20px;">
+                <div class="col-lg-2" style="margin-top: 10px; height: 30px;">
                         ${user.wechatNickname}&nbsp;${user.hidePhone}
                 </div>
             </c:if>
