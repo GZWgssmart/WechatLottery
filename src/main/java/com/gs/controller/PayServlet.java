@@ -77,7 +77,14 @@ public class PayServlet extends HttpServlet {
     private void lotteryStock(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext servletContext = req.getServletContext();
         int prizedCount = (Integer) servletContext.getAttribute(ConfigConstants.PRIZED_COUNT_STOCK);
-        List<User> payedUsers = userService.queryAllPayed();
+        List<User> payedUsers = userService.queryAll();
+        Iterator<User> iterator = payedUsers.iterator();
+        while (iterator.hasNext()) {
+            User user = iterator.next();
+            if (user.getPrizedStock() >= 1) {
+                iterator.remove();
+            }
+        }
         List<User> prizedUser = new ArrayList<User>();
         Collections.shuffle(payedUsers);
         if (payedUsers.size() <= prizedCount) {
@@ -110,15 +117,16 @@ public class PayServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/pay/prized_users_stock");
     }
 
+    /**
+     * 修改成只要关注了就可以参与投资
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     private void allPayedStock(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> payedUsers = userService.queryAllPayed();
+        List<User> payedUsers = userService.queryAll();
         req.setAttribute("payed_users", payedUsers);
-        int total = 0;
-        for (User user : payedUsers) {
-            total += user.getPayedFee();
-        }
-        req.setAttribute("actual_pay", payedUsers.size());
-        req.setAttribute("total_money", DecimalUtil.centToYuan(total));
         req.getRequestDispatcher("/WEB-INF/views/admin/all_payed_stock.jsp").forward(req, resp);
     }
 

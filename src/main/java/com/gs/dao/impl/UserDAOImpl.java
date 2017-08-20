@@ -89,7 +89,35 @@ public class UserDAOImpl extends AbstractBaseDAO implements UserDAO {
 
     @Override
     public List<User> queryAll() {
-        return null;
+        getConnection();
+        String sql = "select * from t_user";
+        List<User> users = new ArrayList<User>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setAccessToken(resultSet.getString("access_token"));
+                user.setAccessToken1(resultSet.getString("access_token1"));
+                user.setOpenId(resultSet.getString("openid"));
+                user.setWechatNickname(resultSet.getString("wechat_nickname"));
+                user.setGender(resultSet.getString("gender"));
+                user.setPhone(resultSet.getString("phone"));
+                user.setHidePhone(PhoneUtil.hidePhone(user.getPhone()));
+                user.setPayedFee(resultSet.getInt("payed_fee"));
+                user.setPayedTime(resultSet.getDate("payed_time"));
+                user.setPrized(resultSet.getInt("prized"));
+                user.setPrizedStock(resultSet.getInt("prized_stock"));
+                users.add(user);
+            }
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        close();
+        return users;
     }
 
     @Override

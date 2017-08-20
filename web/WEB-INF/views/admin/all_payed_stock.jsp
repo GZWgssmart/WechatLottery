@@ -14,26 +14,23 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>所有付款用户</title>
+    <title>所有关注用户</title>
     <link href="<%=path %>/plugins/bootstrap/bootstrap.min.css" rel="stylesheet"/>
     <link href="<%=path %>/plugins/sweet-alert/sweet-alert.css" rel="stylesheet"/>
     <link href="<%=path %>/css/main.css" rel="stylesheet" />
 </head>
 <body>
     <div class="row none-box">
-        <p class="col-lg-offset-3">总支付人数：${requestScope.actual_pay }</p>
-        <p class="col-lg-offset-3">总支付金额：${requestScope.total_money }元</p>
+        <p class="col-lg-offset-3">所有关注公众号用户</p>
         <a class="col-lg-offset-3 col-lg-6 btn btn-primary" href="<%=path %>/pay/lottery_stock">随机抽出原始股中奖名额！</a>
         <p>
         <small>如确认此轮抽奖已经结束，在开启下一轮抽奖前<strong>一定</strong>要抽出此轮的中奖名额并确认！</small>
         </p>
         <div class="col-lg-12">
         <c:forEach items="${requestScope.payed_users}" var="user">
-            <c:if test="${!empty(user.tranId)}">
                 <div class="col-lg-2" style="margin-top: 10px; height: 30px;">
                         ${user.wechatNickname}&nbsp;${user.hidePhone}
                 </div>
-            </c:if>
         </c:forEach>
         </div>
     </div>

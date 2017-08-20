@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryAll() {
-        return null;
+        return userDAO.queryAll();
     }
 
     @Override
